@@ -3,7 +3,7 @@
  *
  *  Basic layout of file follows basic layout of application:
  *                      Spinner
- *  Help  Layout  Settings  Camera  Directions  Exit
+ *  Help  Location  Settings  Camera  Directions  Exit
  */
 
 /**
@@ -49,6 +49,7 @@ function onHelpButton() {
     console.log('onHelpButton');
 
     // TODO: Show the modal div for the initial help page.
+    $('#help-modal-wrapper').addClass('display');
 
 }
 
@@ -74,6 +75,7 @@ function onLocationButton() {
     console.log('onLocationButton');
 
     // TODO: Show the modal div for selecting a zip code or the current location.
+    $('#location-modal-wrapper').addClass('display');
 }
 
 /**
@@ -104,6 +106,8 @@ function onSettingsButton() {
     console.log('onSettingsButton');
 
     // TODO: Show the modal div for selecting which types of food to select from.
+    $('#settings-modal-wrapper').addClass('display');
+
 }
 
 /**
@@ -113,6 +117,7 @@ function onCameraButton() {
     console.log('onCameraButton');
 
     // TODO: Show the modal div for the images.
+    $('#camera-modal-wrapper').addClass('display');
 
     // TODO: Kick off photo lookup for the restaurants.
 
@@ -146,6 +151,7 @@ function onDirectionsButton() {
     console.log('onDirectionsButton');
 
     // TODO: Show the modal div for directions.
+    $('#directions-modal-wrapper').addClass('display');
 
 }
 
@@ -177,6 +183,7 @@ function onExitButton() {
     console.log('onExitButton');
 
     // TODO: Show the modal div for 'Are you sure?'  Exit if so.
+    $('#exit-modal-wrapper').addClass('display');
 
 }
 
