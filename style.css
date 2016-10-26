@@ -20,12 +20,15 @@
 }
 
 .modal-wrapper {
+    box-sizing: border-box;
     display: none;
     position: absolute;
     width: 90%;
     height: 90%;
     left: 5%;
     top: 5%;
+    padding-top: 5%;
+    padding-left: 5%;
     border: 1px solid black;
     background-color: lightgray;
 }
