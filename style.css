@@ -1,0 +1,86 @@
+/********* Wrappers: *************************/
+/* sets dimensions for all main content areas */
+.everything-wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background-color: blue;
+}
+.header-wrapper {
+    height: 15%;
+    width: 100%;
+    position: relative;
+    background-color: orange;
+}
+.wheel-content-wrapper {
+    height:70%;
+    width: 100%;
+    position: relative;
+    background-color: green;
+}
+
+.modal-wrapper {
+    display: none;
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    left: 5%;
+    top: 5%;
+    border: 1px solid black;
+    background-color: lightgray;
+}
+.modal-wrapper.display {
+    display: inherit;
+}
+.footer-wrapper {
+    height: 15%;
+    width: 96%;
+    background-color: purple;
+    margin: auto;
+    bo
+}
+.help-button-wrapper, .location-button-wrapper, .settings-button-wrapper, .camera-button-wrapper, .direction-button-wrapper, .exit-button-wrapper {
+    width: 16%;
+    height: 100%;
+    display: inline-block;
+    margin: auto;
+}
+
+/*********** Header content *************/
+/* header content broken into sub-sections */
+.header-logo {
+    height: 100%;
+    width: 20%;
+    position: absolute;
+    background-color: #40bf40;
+    left: 0;
+}
+.header-title {
+    height: 100%;
+    width: 80%;
+    display: inline-block;
+    background-color: darkcyan;
+    position: absolute;
+    left:20%;
+}
+
+/*********** Footer content *************/
+/* footer content broken into sub-sections */
+.help-button-wrapper {
+    background-color: #6a6969;
+}
+.location-button-wrapper {
+    background-color: yellow;
+}
+.settings-button-wrapper {
+    background-color: #6a6969;
+}
+.camera-button-wrapper {
+    background-color: yellow;
+}
+.direction-button-wrapper {
+    background-color: #6a6969;
+}
+.exit-button-wrapper {
+    background-color: yellow;
+}
