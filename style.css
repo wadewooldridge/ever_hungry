@@ -1,24 +1,35 @@
 /********* Wrappers: *************************/
-/* sets dimensions for all main content areas */
+/* sets dimensions for main content areas */
+
+/** Everything Wrapper **/
 .everything-wrapper {
     width: 100vw;
     height: 100vh;
     position: relative;
     background-color: blue;
 }
+/** Header Wrapper **/
 .header-wrapper {
     height: 15%;
     width: 100%;
     position: relative;
     background-color: orange;
 }
+/** Wheel Wrapper **/
 .wheel-content-wrapper {
     height:70%;
     width: 100%;
     position: relative;
     background-color: green;
 }
-
+/** Footer Wrapper **/
+.footer-wrapper {
+    height: 15%;
+    width: 96%;
+    background-color: purple;
+    margin: auto;
+}
+/** Modal Wrapper (hidden) **/
 .modal-wrapper {
     box-sizing: border-box;
     display: none;
@@ -32,16 +43,11 @@
     border: 1px solid black;
     background-color: lightgray;
 }
+/** Wheel Wrapper (displayed) **/
 .modal-wrapper.display {
     display: inherit;
 }
-.footer-wrapper {
-    height: 15%;
-    width: 96%;
-    background-color: purple;
-    margin: auto;
-    bo
-}
+/** Footer Button Wrappers **/
 .help-button-wrapper, .location-button-wrapper, .settings-button-wrapper, .camera-button-wrapper, .direction-button-wrapper, .exit-button-wrapper {
     width: 16%;
     height: 100%;
@@ -50,7 +56,9 @@
 }
 
 /*********** Header content *************/
-/* header content broken into sub-sections */
+/* Header content broken into sub-sections */
+
+/** Logo **/
 .header-logo {
     height: 100%;
     width: 20%;
@@ -58,6 +66,7 @@
     background-color: #40bf40;
     left: 0;
 }
+/** Title **/
 .header-title {
     height: 100%;
     width: 80%;
@@ -67,23 +76,43 @@
     left:20%;
 }
 
+/*********** Main Wheel content *************/
+/* Main content broken into sub-sections */
+
+/** Test Display for button generated food type **/
+#display-food-type {
+    border: 1px solid black;
+    height:50px;
+    width: 100px;
+}
+/** Wheel **/
+
+
+
 /*********** Footer content *************/
-/* footer content broken into sub-sections */
+/* Footer content broken into sub-sections */
+
+/** Help Button **/
 .help-button-wrapper {
     background-color: #6a6969;
 }
+/** Location Button **/
 .location-button-wrapper {
     background-color: yellow;
 }
+/** Settings Button **/
 .settings-button-wrapper {
     background-color: #6a6969;
 }
+/** Camera Button **/
 .camera-button-wrapper {
     background-color: yellow;
 }
+/** Direction Button **/
 .direction-button-wrapper {
     background-color: #6a6969;
 }
+/** Exit Button **/
 .exit-button-wrapper {
     background-color: yellow;
 }

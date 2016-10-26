@@ -40,12 +40,12 @@ var gaPictures = [];
  *  onSpin - This is currently not a spinner, but it will eventually be.
  */
 function onSpin() {
-    console.log('onSpin');
-
+    console.log('onSpin called');
     // TODO: Add some animation for the spinner.
 
     // Select a random food type from the gaFoodTypes[] array.
-
+    gFoodTypeIndex = Math.floor(Math.random()* gaFoodTypes.length);
+    return $('#display-food-type').text(gaFoodTypes[gFoodTypeIndex]);
 }
 
 /**
@@ -241,7 +241,7 @@ $(document).ready(function () {
     console.log('Document ready');
 
     // Attach click handler for the main spin button.
-
+    $('#spin-button').click(onSpin);
     // Attach click handlers for the bottom menu buttons.
     $('.help-button').click(onHelpButton);
     $('.location-button').click(onLocationButton);
