@@ -21,16 +21,15 @@
 .footer-wrapper {
     height: 15%;
     width: 96%;
-    position: relative;
     background-color: purple;
     margin: auto;
+    bo
 }
 .help-button-wrapper, .location-button-wrapper, .setting-button-wrapper, .camera-button-wrapper, .direction-button-wrapper, .exit-button-wrapper {
     width: 16%;
     height: 100%;
     display: inline-block;
     margin: auto;
-    position: relative;
 }
 
 /*********** Header content *************/
