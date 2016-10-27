@@ -19,9 +19,12 @@ var gLocation = null;
 
 /**
  *  Global data from the settings modal for selecting food types.
- *  @type {object[]}    Array of valid food types.
+ *  @type {boolean[]}   Array of booleans of whether each food type is checked (enabled).
+ *  @type {object[]}    Array of valid food types, filtered from the checkboxes.
  *  @type {number}      Current index in the array.
  */
+var gLocalStorageKey = 'HungryEverSettings';
+var gaFoodTypesChecked = [];
 var gaFoodTypes = [];
 var gFoodTypeIndex = null;
 
@@ -236,6 +239,59 @@ function buildSettingsModal() {
 }
 
 /**
+ *  isLocalStorageSupported - returns true if browser supports localStorage functions.
+ *  @returns {boolean} - true if supported.
+ */
+function isLocalStorageSupported() {
+    return typeof(localStorage) !== 'undefined';
+}
+
+/**
+ *  loadSettingsFromLocalStorage - Set checkboxes based on last settings.
+ */
+function loadSettingsFromLocalStorage() {
+    console.log('loadSettingsFromLocalStorage');
+    var retArray = null;
+
+    if (!isLocalStorageSupported()) {
+        console.log('loadSettingsFromLocalStorage: not supported on this platform');
+    } else {
+        retArray = JSON.parse(localStorage.getItem(gLocalStorageKey));
+    }
+
+    // If it failed for either reason, assume the settings are all enabled.
+    if (retArray === null) {
+        console.log('loadSettingsFromLocalStorage: defaulting settings');
+        gaFoodTypesChecked = [];
+
+        for (var i = 0; i < gaValidFoodTypes.length; i++) {
+            gaFoodTypesChecked.push(true);
+        }
+    } else {
+        console.log('loadSettingsFromLocalStorage: succeeded');
+        gaFoodTypesChecked = retArray;
+    }
+
+    // Now take the current array and check/uncheck the boxes.
+    for (var i = 0; i < gaFoodTypesChecked.length; i++) {
+       $('#checkbox' + i).prop('checked', gaFoodTypesChecked[i]);
+    }
+}
+
+/**
+ *  saveSettingsToLocalStorage - Save array of checkbox settings.
+ */
+function saveSettingsToLocalStorage() {
+    console.log('saveSettingsToLocalStorage');
+    if (!isLocalStorageSupported()) {
+        return;
+    }
+
+    localStorage.setItem(gLocalStorageKey, JSON.stringify(gaFoodTypesChecked));
+}
+
+
+/**
  *  onSettingsButton
  */
 function onSettingsButton() {
@@ -262,12 +318,16 @@ function onSettingsOkButton() {
     // Check each checkbox in turn.
     for (var i = 0; i < gaValidFoodTypes.length; i++) {
         var checked = $('#checkbox' + i).prop('checked');
+        gaFoodTypesChecked[i] = checked;
 
         if (checked) {
             gaFoodTypes.push(gaValidFoodTypes[i]);
         }
     }
     // console.log('onSettingsOkButton: ' + gaFoodTypes);
+
+    // Update local storage based on the settings selected.
+    saveSettingsToLocalStorage();
 }
 
 /**
@@ -447,5 +507,8 @@ $(document).ready(function () {
 
     // Build the settings modal from the valid food type.
     buildSettingsModal();
+
+    // Load the saved settings from local storage.
+    loadSettingsFromLocalStorage();
 
 });
