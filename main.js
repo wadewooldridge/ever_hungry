@@ -59,6 +59,54 @@ var gaRestaurants = [
 var gaPictures = [];
 
 /**
+ *  photosRequest - Start the AJAX call to get photos' information.
+ */
+function photosRequest(latitude, longitude, foodType) {
+    console.log('photosRequest');
+
+    $.ajax({
+        data:{
+            method: 'flickr.photos.search',
+            api_key: 'ae2be88898748811d752637d4c7235c5',
+            format: 'json',
+            text: foodType+'+restaurant',
+            lat: latitude,
+            lon: longitude,
+            has_geo: 1,
+            media: 'photos',
+            radius: 1,
+            radius_unit: 'km',
+            per_page: 20,
+            page: 1,
+            nojsoncallback: 1
+        },
+        url: 'https://api.flickr.com/services/rest',
+        dataType:'json',
+        success: photosSuccess,
+        error: photosError
+});
+
+/**
+ *  photosError - Handle error callback for getting photos information.
+ */
+function photosError() {
+    console.warn('photosError');
+}
+
+/**
+ *  photosSuccess - Handle success callback for getting photos information.
+ */
+function photosSuccess(pictures_data) {
+    console.log('photosSuccess');
+    gaPictures.push(pictures_data.photos.photo);
+}
+/*
+ * createPhotoUrl - Take the pieces of a flickr photo object and create a valid photo URL
+ */
+function createPhotoUrl(){
+    var url = 'https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg'
+}
+/**
  *  onSpin - This is currently not a spinner, but it will eventually be.
  */
 function onSpin() {
@@ -308,4 +356,4 @@ $(document).ready(function () {
     $('.help-next-button').click(onHelpNextButton);
     $('.help-exit-button').click(onHelpExitButton);
 
-});
+})}
