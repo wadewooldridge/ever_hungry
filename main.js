@@ -565,8 +565,6 @@ $(document).ready(function () {
     $('.help-button').click(onHelpButton);
     $('.location-button').click(onLocationButton);
     $('.settings-button').click(onSettingsButton);
-    $('.photo-button').click(onPhotosButton);
-    $('.directions-button').click(onDirectionsButton);
 
     // Attach click handlers for the help modal.
     $('#help-ok-button').click(onHelpOkButton);
