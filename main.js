@@ -71,6 +71,10 @@ function onSpin() {
 
     // Call the restaurant lookup to start the next part of the process.
     restaurantRequest();
+
+    // TEMPORARY CODE: manually call to display the restaurants (should come from restaurantSuccess).
+    restaurantClearDisplay();
+    restaurantDisplay();
 }
 
 /**
@@ -216,6 +220,30 @@ function restaurantSuccess() {
     console.log('restaurantSuccess');
 }
 
+/**
+ *  restaurantClearDisplay - Remove any old restaurants from the DOM.
+ */
+function restaurantClearDisplay() {
+    console.log('restaurantClearDisplay');
+    $('.restaurant').remove();
+}
+/**
+ *  restaurantDisplay - Update the DOM with the restaurants in gaRestaurants.
+ */
+function restaurantDisplay() {
+    console.log('restaurantDisplay');
+    var count = Math.min(gaRestaurants.length, 5);
+    var containerElem = $('.wheel-right');
+
+    for (var i = 0; i < count; i++) {
+        var r = gaRestaurants[i];
+        var fullAddress = r.address + '; ' + r.city + ', ' + r.state + ' ' + r.zip;
+        var restaurantElem = $('<div>').addClass('restaurant');
+        restaurantElem.append($('<p>').addClass('restaurant-name').text(r.name));
+        restaurantElem.append($('<p>').text(fullAddress));
+        containerElem.append(restaurantElem);
+    }
+}
 /**
  *  onDirectionsButton
  */
