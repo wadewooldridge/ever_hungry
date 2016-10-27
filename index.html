@@ -3,6 +3,7 @@
 <link rel="stylesheet" type="text/css" href="normalize.css">
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Candal|Oswald|Roboto+Condensed:700|Roboto:300" rel="stylesheet">
 <head>
     <meta charset="UTF-8">
 
@@ -23,11 +24,8 @@
 <div id="map"></div>
     <div class="everything-wrapper">
         <header class="header-wrapper">
-            <div class="header-logo">
-
-            </div>
             <div class="header-title">
-                <h1>Ever Hungry?</h1>
+                <img src="assets/white_dice.png" id="dice-logo"> <div id="main-title">ever hungry?</div>
             </div>
         </header>
         <div class="wheel-content-wrapper">
@@ -36,16 +34,27 @@
                     <div id="display-food-type"></div>
                     <hr>
                     <button id="spin-button">Spin</button>
+                    <img width="400" height="400" src="assets/color_wheel.png" id="colorWheel"/>
                 </div>
                 <div class="wheel-right">
                     <!-- Restaurant list is created here. -->
+                    <div class="camera-button-wrapper">
+                        <div class="camera-button">
+                            camera
+                        </div>
+                    </div>
+                    <div class="direction-button-wrapper">
+                        <div class="directions-button">
+                            directions
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="help-modal-wrapper" class="modal-wrapper">
                 Here is the help modal.
             </div>
             <div id="location-modal-wrapper" class="modal-wrapper">
-                <input type="text" placeholder="enter zip code" class="userZip">
+                <input type="text" placeholder="address or zip code" class="userZip">
                 <input type="submit" value="submit" id="buttonLocationZip"><br>
                 <input type="submit" value="use current location" id="buttonLocationCurrent">
             </div>
@@ -65,34 +74,21 @@
         <footer class="footer-wrapper">
             <div class="help-button-wrapper">
                 <div class="help-button">
-                    help
+                    ?
                 </div>
             </div>
             <div class="location-button-wrapper">
                 <div class="location-button">
-                    location
+                    <img src="assets/white_location_pin.png" class="bottom-icons">
                 </div>
             </div>
             <div class="settings-button-wrapper">
                 <div class="settings-button">
-                    settings
+                    <img src="assets/white_setting_pin.png" class="bottom-icons">
                 </div>
             </div>
-            <div class="camera-button-wrapper">
-                <div class="camera-button">
-                    camera
-                </div>
-            </div>
-            <div class="direction-button-wrapper">
-                <div class="directions-button">
-                    directions
-                </div>
-            </div>
-            <div class="exit-button-wrapper">
-                <div class="exit-button">
-                    exit
-                </div>
-            </div>
+
+
         </footer>
     </div>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZISd2dj9XOcOLvQC162avw5TOoS7d9_k&libraries=places" async defer></script>

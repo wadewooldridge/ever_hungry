@@ -373,6 +373,26 @@ function onExitButton() {
 }
 
 /**
+ * Spin wheel
+ */
+function spinWheel(){
+    console.log('gotems')
+    var img = document.querySelector('#colorWheel');
+    img.addEventListener('click', onClick, false);
+    function onClick() {
+        console.log('wheel clickd');
+        this.removeAttribute('style');
+        var deg = 900 + Math.round(Math.random() * 900);
+        var css = '-webkit-transform: rotate(' + deg + 'deg);';
+        this.setAttribute(
+            'style', css
+        );
+    }
+
+}
+
+
+/**
  *  Document ready.
  */
 $(document).ready(function () {
@@ -395,4 +415,9 @@ $(document).ready(function () {
     //click handlers for the location module
     $('#buttonLocationCurrent').click(locationRequestCurrent);
     $('#buttonLocationZip').click(locationRequestZip);
+
+    //apply spin wheel function
+    $('#colorWheel').click(spinWheel);
 });
+
+

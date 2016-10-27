@@ -2,31 +2,35 @@
 /* sets dimensions for main content areas */
 
 /** Everything Wrapper **/
+/**{*/
+    /*font-family: 'Oswald', sans-serif;*/
+/*}*/
+
 .everything-wrapper {
     width: 100vw;
     height: 100vh;
     position: relative;
-    background-color: blue;
+    background-color: #EF5350;
 }
 /** Header Wrapper **/
 .header-wrapper {
-    height: 15%;
+    height: 14%;
     width: 100%;
     position: relative;
-    background-color: orange;
+    background-color:#F44336;
 }
 /** Wheel Wrapper **/
 .wheel-content-wrapper {
-    height:70%;
+    height:75%;
     width: 100%;
     position: relative;
-    background-color: green;
+    background-color: #FFFFFF;
 }
 /** Footer Wrapper **/
 .footer-wrapper {
-    height: 15%;
-    width: 96%;
-    background-color: purple;
+    height: 1%;
+    width: 100%;
+    background-color: #EF5350;
     margin: auto;
 }
 /** Modal Wrapper (hidden) **/
@@ -48,7 +52,7 @@
     display: inherit;
 }
 /** Footer Button Wrappers **/
-.help-button-wrapper, .location-button-wrapper, .settings-button-wrapper, .camera-button-wrapper, .direction-button-wrapper, .exit-button-wrapper {
+.help-button-wrapper, .location-button-wrapper, .settings-button-wrapper, .camera-button-wrapper, .direction-button-wrapper{
     width: 16%;
     height: 100%;
     display: inline-block;
@@ -59,21 +63,39 @@
 /* Header content broken into sub-sections */
 
 /** Logo **/
+
+#dice-logo {
+    /*position: absolute;*/
+    /*left:50%;*/
+    /*transform: translate(-50%,-50%);*/
+    /*top: 72%;*/
+    height: 44%;
+    width: auto;
+}
+#main-title{
+    display:inline-block;
+    font-size:52px;
+    vertical-align: top;
+}
 .header-logo {
     height: 100%;
-    width: 20%;
+    width: 11%;
     position: absolute;
-    background-color: #40bf40;
+    background-color: #D32F2F;
     left: 0;
 }
 /** Title **/
 .header-title {
-    height: 100%;
-    width: 80%;
     display: inline-block;
-    background-color: darkcyan;
+    background-color: #F44336;
+    font-family: 'Oswald', sans-serif;
+    color: white;
     position: absolute;
-    left:20%;
+    left: 45%;
+    transform: translate(-50%,-50%);
+    top: 87%;
+    height: 44%;
+    width: auto
 }
 
 /*********** Main Wheel content *************/
@@ -121,6 +143,12 @@
 #spin-button {
     width: 100%;
 }
+/*//for wheel*/
+
+#colorWheel{
+    display:block;
+    webkit-transition: -webkit-transform 5s ease-out;
+}
 
 
 /*********** Footer content *************/
@@ -128,25 +156,26 @@
 
 /** Help Button **/
 .help-button-wrapper {
-    background-color: #6a6969;
+    background-color: #EF5350;
 }
 /** Location Button **/
 .location-button-wrapper {
-    background-color: yellow;
+    background-color: #EF5350;
 }
 /** Settings Button **/
 .settings-button-wrapper {
-    background-color: #6a6969;
+    background-color: ##EF5350;
 }
 /** Camera Button **/
 .camera-button-wrapper {
-    background-color: yellow;
+    background-color: lightslategrey;
 }
 /** Direction Button **/
 .direction-button-wrapper {
-    background-color: #6a6969;
+    background-color: lightslategrey;
 }
-/** Exit Button **/
-.exit-button-wrapper {
-    background-color: yellow;
+
+.bottom-icons{
+    width:20px;
+    height:20px;
 }
