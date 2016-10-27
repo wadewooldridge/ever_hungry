@@ -79,14 +79,48 @@
 /*********** Main Wheel content *************/
 /* Main content broken into sub-sections */
 
+/** Wheel **/
+
+.wheel-left {
+    display: block;
+    width: 25%;
+    float: left;
+}
+
+.wheel-right {
+    display: block;
+    width: 70%;
+    height: 100%;
+    float: right;
+}
+
+.restaurant {
+    display: block;
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid black;
+}
+
+.restaurant p {
+    margin: 0;
+}
+
+.restaurant-name {
+    font-weight: bold;
+}
+
 /** Test Display for button generated food type **/
 #display-food-type {
     border: 1px solid black;
     height:50px;
-    width: 100px;
+    width: 100%;
+    text-align: center;
+    text-transform: capitalize;
 }
-/** Wheel **/
 
+#spin-button {
+    width: 100%;
+}
 
 
 /*********** Footer content *************/
