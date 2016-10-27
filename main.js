@@ -49,7 +49,8 @@ var gaPictures = [];
  *  onSpin - This is currently not a spinner, but it will eventually be.
  */
 function onSpin() {
-    console.log('onSpin called');
+    console.log('onSpin');
+
     // TODO: Add some animation for the spinner.
 
     // Select a random food type from the gaFoodTypes[] array.
@@ -68,7 +69,6 @@ function onHelpButton() {
 
     // TODO: Show the modal div for the initial help page.
     $('#help-modal-wrapper').addClass('display');
-
 }
 
 /**
@@ -91,30 +91,74 @@ function onHelpExitButton() {
  */
 function onLocationButton() {
     console.log('onLocationButton');
-
-    // TODO: Show the modal div for selecting a zip code or the current location.
     $('#location-modal-wrapper').addClass('display');
+    // TODO: Show the modal div for selecting a zip code or the current location.
+    }
+
+/**
+ *  locationRequest - Start the AJAX call to get geolocation information.
+ */
+
+//first ajax call to get longitude and latitude from current location
+function locationRequestCurrent(){
+    $.ajax({
+        url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCJClzDDzSQKXcCAw9UlCm2C8L4ypBj-tg',
+        dataType: 'json',
+        method: 'post',
+        success: locationSuccessCurrent,
+        error: locationErrorCurrent
+        }
+    )
+}
+/**
+ *  locationError - Handle error callback for getting geolocation information.
+ */
+function locationErrorCurrent(){
+    console.log('locationErrorCurrent');
+}
+
+/**
+ *  locationSuccess - Handle success callback for getting geolocation information.
+ *  @param {object} data    Data returned from API.
+ */
+function locationSuccessCurrent(data){
+    console.log('locationSuccessCurrent');
+    console.log(data.location);
+    gCurrentLocation = data.location;
 }
 
 /**
  *  locationRequest - Start the AJAX call to get geolocation information.
  */
-function locationRequest() {
-    console.log('locationRequest');
+//second ajax call to get longitude and latitude from a zip code
+function locationRequestZip() {
+    console.log('locationRequest called');
+    var userInput = $('.userZip').val();
+    $.ajax({
+        url: 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAs52LcfkFdoztNiIHaSzj14C_td0CSK3w&address=' + userInput,
+        dataType: 'json',
+        method: 'post',
+        success: locationSuccessZip,
+        error: locationErrorZip
+        }
+    )
 }
-
 /**
  *  locationError - Handle error callback for getting geolocation information.
  */
-function locationError() {
-    console.warn('locationError');
+function locationErrorZip() {
+    console.warn('locationErrorZip');
 }
 
 /**
  *  locationSuccess - Handle success callback for getting geolocation information.
+ *  @param {object} data    Data returned from API.
  */
-function locationSuccess() {
-    console.log('locationSuccess');
+function locationSuccessZip(data) {
+    console.log('locationSuccessZip');
+    var userZipcode = data.results[0].geometry.location;
+    console.log(userZipcode);
+    gZipCode = userZipcode;
 }
 
 /**
@@ -184,7 +228,7 @@ function onCameraButton() {
 
 /**
  *  initMap - Create the Google map to search for matching local restaraunts.
- *  @param {string} Food type to search for.
+ *  @param {string} food    Food type to search for, e.g. 'mexican'.
  */
 function initMap(food) {
     var pyrmont = {lat: 33.6305353, lng: -117.74319};
@@ -333,7 +377,6 @@ function onExitButton() {
  */
 $(document).ready(function () {
     console.log('Document ready');
-
     // Attach click handler for the main spin button.
     $('#spin-button').click(onSpin);
     // Attach click handlers for the bottom menu buttons.
@@ -349,4 +392,7 @@ $(document).ready(function () {
     $('.help-next-button').click(onHelpNextButton);
     $('.help-exit-button').click(onHelpExitButton);
 
+    //click handlers for the location module
+    $('#buttonLocationCurrent').click(locationRequestCurrent);
+    $('#buttonLocationZip').click(locationRequestZip);
 });
