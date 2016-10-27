@@ -48,7 +48,18 @@ var gaPictures = [];
  */
 function photosRequest(latitude, longitude, foodType) {
     console.log('photosRequest');
+    // Set default parameters if not passed.
+    if (latitude === undefined || latitude === 0) {
+        latitude = gLocation.lat;
+    }
+    if (longitude === undefined || latitude === 0) {
+        latitude = gLocation.lng;
+    }
+    if (foodType === undefined || foodType === '') {
+        foodType = gaFoodTypes[gFoodTypeIndex];
+    }
 
+    // Build the AJAX call to start the photo search.
     $.ajax({
         data: {
             method: 'flickr.photos.search',
@@ -83,8 +94,29 @@ function photosError() {
  */
 function photosSuccess(pictures_data) {
     console.log('photosSuccess');
-    gaPictures.push(pictures_data.photos.photo);
+    gaPictures = pictures_data.photos.photo;
+    photosDisplay();
 }
+
+/**
+ *  photosDisplay - Take the pictures from gaPictures and add them to the photos modal.
+ */
+function photosDisplay() {
+    console.log('photosDisplay: count: ' + gaPictures.length);
+    containerElem = $('#photos-modal-wrapper');
+
+    // Delete any existing pictures.
+    containerElem.find('img').remove();
+
+    // Add each picture in turn.
+    for (var i = 0; i < gaPictures.length; i++) {
+        var pic = gaPictures[i];
+        var url = 'https://farm' + pic.farm + '.staticflickr.com/' + pic.server + '/' + pic.id +
+                  '_' + pic.secret + '_q.jpg';
+        containerElem.prepend($('<img>').attr('src', url));
+    }
+}
+
 /*
  * createPhotoUrl - Take the pieces of a flickr photo object and create a valid photo URL
  */
@@ -243,6 +275,7 @@ function isLocalStorageSupported() {
 function loadSettingsFromLocalStorage() {
     console.log('loadSettingsFromLocalStorage');
     var retArray = null;
+    var i;
 
     if (!isLocalStorageSupported()) {
         console.log('loadSettingsFromLocalStorage: not supported on this platform');
@@ -255,7 +288,7 @@ function loadSettingsFromLocalStorage() {
         console.log('loadSettingsFromLocalStorage: defaulting settings');
         gaFoodTypesChecked = [];
 
-        for (var i = 0; i < gaValidFoodTypes.length; i++) {
+        for (i = 0; i < gaValidFoodTypes.length; i++) {
             gaFoodTypesChecked.push(true);
         }
     } else {
@@ -263,9 +296,12 @@ function loadSettingsFromLocalStorage() {
         gaFoodTypesChecked = retArray;
     }
 
-    // Now take the current array and check/uncheck the boxes.
-    for (var i = 0; i < gaFoodTypesChecked.length; i++) {
+    // Now take the current array and check/uncheck the boxes, and build the list of current types.
+    for (i = 0; i < gaFoodTypesChecked.length; i++) {
        $('#checkbox' + i).prop('checked', gaFoodTypesChecked[i]);
+        if (gaFoodTypesChecked[i]) {
+            gaFoodTypes.push(gaValidFoodTypes[i]);
+        }
     }
 }
 
@@ -322,16 +358,24 @@ function onSettingsOkButton() {
 }
 
 /**
- *  onPhotoButton
+ *  onPhotosButton - Bring up the photos modal.
  */
-function onPhotoButton() {
-    console.log('onPhotoButton');
+function onPhotosButton() {
+    console.log('onPhotosButton');
 
     // TODO: Show the modal div for the images.
-    $('#photo-modal-wrapper').addClass('display');
+    $('#photos-modal-wrapper').addClass('display');
 
     // TODO: Kick off photo lookup for the restaurants.
 
+}
+
+/**
+ *  onPhotosOkButton - Close the help modal.
+ */
+function onPhotosOkButton() {
+    console.log('onPhotosOkButton');
+    $('#photos-modal-wrapper').removeClass('display');
 }
 
 /**
@@ -389,9 +433,22 @@ function restaurantDisplay() {
 
     for (var i = 0; i < count; i++) {
         var r = gaRestaurants[i];
+        // Build a div with the basic information from the restaurant.
         var restaurantElem = $('<div>').addClass('restaurant');
         restaurantElem.append($('<p>').addClass('restaurant-name').text(r.name));
         restaurantElem.append($('<p>').text(r.address));
+
+        // Add buttons for the photos and directions.
+        restaurantElem.append($('<button>').text('Photos').click(function () {
+            photosRequest();
+            onPhotosButton();
+        }));
+        restaurantElem.append($('<button>').text('Directions').click(function () {
+            directionsRequest();
+            onDirectionsButton();
+        }));
+
+        // Append the formatted restaurant div to its container.
         containerElem.append(restaurantElem);
     }
 }
@@ -446,6 +503,14 @@ function onDirectionsButton() {
     // TODO: Show the modal div for directions.
     $('#directions-modal-wrapper').addClass('display');
 
+}
+
+/**
+ *  onDirectionsOkButton - Close the help modal.
+ */
+function onDirectionsOkButton() {
+    console.log('onDirectionsOkButton');
+    $('#directions-modal-wrapper').removeClass('display');
 }
 
 /**
@@ -514,7 +579,7 @@ $(document).ready(function () {
     $('.help-button').click(onHelpButton);
     $('.location-button').click(onLocationButton);
     $('.settings-button').click(onSettingsButton);
-    $('.photo-button').click(onPhotoButton);
+    $('.photo-button').click(onPhotosButton);
     $('.directions-button').click(onDirectionsButton);
 
     // Attach click handlers for the help modal.
@@ -524,6 +589,12 @@ $(document).ready(function () {
     $('#location-current-button').click(locationRequestCurrent);
     $('#location-zip-button').click(locationRequestZip);
     $('#location-ok-button').click(onLocationOkButton);
+
+    // Attach click handlers for the photos modal.
+    $('#photos-ok-button').click(onPhotosOkButton);
+
+    // Attach click handlers for the directcions modal.
+    $('#directions-ok-button').click(onDirectionsOkButton);
 
     // Start by getting the current location as the default.
     locationRequestCurrent();
