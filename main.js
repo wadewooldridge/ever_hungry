@@ -3,7 +3,7 @@
  *
  *  Basic layout of file follows basic layout of application:
  *                      Spinner
- *  Help  Location  Settings  photo  Directions  Exit
+ *  Help  Location  Settings  Photos  Directions
  */
 /**
  *  @type {string[]}    Valid food types (categories).
@@ -535,18 +535,6 @@ function directionsSuccess() {
 }
 
 /**
-<<<<<<< HEAD
- *  onExitButton
- */
-function onExitButton() {
-    console.log('onExitButton');
-
-    // TODO: Show the modal div for 'Are you sure?'  Exit if so.
-    $('#exit-modal-wrapper').addClass('display');
-
-}
-
-/**
  * Spin wheel
  */
 function spinWheel(){
@@ -605,6 +593,7 @@ $(document).ready(function () {
 
     //apply spin wheel function
     $('#colorWheel').click(spinWheel);
+
 });
 
 
