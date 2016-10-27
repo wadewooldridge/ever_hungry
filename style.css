@@ -17,7 +17,8 @@
     height: 14%;
     width: 100%;
     position: relative;
-    background-color:#F44336;
+    background-color: #D32F2F;
+    max-height: 220px;
 }
 /** Wheel Wrapper **/
 .wheel-content-wrapper {
@@ -71,27 +72,26 @@
 /*********** Header content *************/
 /* Header content broken into sub-sections */
 
-/** Logo **/
+/** Title and Logo **/
 
-#dice-logo {
-    /*position: absolute;*/
-    /*left:50%;*/
-    /*transform: translate(-50%,-50%);*/
-    /*top: 72%;*/
-    height: 44%;
-    width: auto;
+.dice-logo {
+    height: 50%;
+    display: inline-block;
 }
-#main-title{
-    display:inline-block;
-    font-size:52px;
-    vertical-align: top;
+.main-title{
+    display: inline-block;
+    color: white;
+    min-width: 203px;
 }
 .header-logo {
-    height: 100%;
-    width: 11%;
+    height: 50%;
+    min-height: 111px;
     position: absolute;
-    background-color: #D32F2F;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    min-width: 263px;
 }
 /** Title **/
 .header-title {
@@ -119,15 +119,16 @@
 }
 div.wheel-left {
     display: inline-block;
-    width: 40%;
+    width: 50%;
     position: relative;
     height: 100%;
     font-size: initial;
+    box-sizing: border-box;
 }
 
 div.wheel-right {
     display: inline-block;
-    width: 60%;
+    width: 50%;
     height: 100%;
     position: relative;
     font-size: initial;
@@ -136,7 +137,7 @@ div.wheel-right {
 
 .restaurant {
     display: block;
-    width: 90%;
+    width: 100%;
     padding: 0.5em;
     border: 1px solid black;
     position: relative;
@@ -189,22 +190,26 @@ div.wheel-right {
     width: 90%;
     text-align: center;
     text-transform: capitalize;
-    margin: 10% 5% 5%;
+    margin: 15% 5% 0;
     position: relative;
 }
 
 #spin-button {
-    width: 60%;
+    width: 80%;
     height: 10%;
     position: absolute;
-    margin: 0 21%;
+    margin: 5% 10%;
     border-radius: 100% 100%;
 }
 /*//for wheel*/
 
 #colorWheel{
-    display:block;
+    display: inline-block;
+    height: 70%;
+    width: auto;
     webkit-transition: -webkit-transform 5s ease-out;
+    position: absolute;
+    margin: 15% 0;
 }
 
 /*********** Footer content *************/
