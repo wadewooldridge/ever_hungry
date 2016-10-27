@@ -550,7 +550,7 @@ function onExitButton() {
  * Spin wheel
  */
 function spinWheel(){
-    console.log('gotems')
+    console.log('spinWheel')
     var img = document.querySelector('#colorWheel');
     img.addEventListener('click', onClick, false);
     function onClick() {
@@ -567,8 +567,6 @@ function spinWheel(){
 
 
 /**
-=======
->>>>>>> phase1_dev
  *  Document ready.
  */
 $(document).ready(function () {
@@ -605,15 +603,8 @@ $(document).ready(function () {
     // Load the saved settings from local storage.
     loadSettingsFromLocalStorage();
 
-<<<<<<< HEAD
-    //click handlers for the location module
-    $('#buttonLocationCurrent').click(locationRequestCurrent);
-    $('#buttonLocationZip').click(locationRequestZip);
-
     //apply spin wheel function
     $('#colorWheel').click(spinWheel);
-=======
->>>>>>> phase1_dev
 });
 
 
