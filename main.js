@@ -534,15 +534,14 @@ $(document).ready(function () {
     // Load the saved settings from local storage.
     loadSettingsFromLocalStorage();
 
-<<<<<<< HEAD
+
     //click handlers for the location module
     $('#buttonLocationCurrent').click(locationRequestCurrent);
     $('#buttonLocationZip').click(locationRequestZip);
 
     //apply spin wheel function
     $('#colorWheel').click(spinWheel);
-=======
->>>>>>> phase1_dev
+
 });
 
 
