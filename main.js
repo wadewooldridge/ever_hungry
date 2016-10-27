@@ -470,6 +470,40 @@ function directionsSuccess() {
 }
 
 /**
+<<<<<<< HEAD
+ *  onExitButton
+ */
+function onExitButton() {
+    console.log('onExitButton');
+
+    // TODO: Show the modal div for 'Are you sure?'  Exit if so.
+    $('#exit-modal-wrapper').addClass('display');
+
+}
+
+/**
+ * Spin wheel
+ */
+function spinWheel(){
+    console.log('gotems')
+    var img = document.querySelector('#colorWheel');
+    img.addEventListener('click', onClick, false);
+    function onClick() {
+        console.log('wheel clickd');
+        this.removeAttribute('style');
+        var deg = 900 + Math.round(Math.random() * 900);
+        var css = '-webkit-transform: rotate(' + deg + 'deg);';
+        this.setAttribute(
+            'style', css
+        );
+    }
+
+}
+
+
+/**
+=======
+>>>>>>> phase1_dev
  *  Document ready.
  */
 $(document).ready(function () {
@@ -500,4 +534,15 @@ $(document).ready(function () {
     // Load the saved settings from local storage.
     loadSettingsFromLocalStorage();
 
+<<<<<<< HEAD
+    //click handlers for the location module
+    $('#buttonLocationCurrent').click(locationRequestCurrent);
+    $('#buttonLocationZip').click(locationRequestZip);
+
+    //apply spin wheel function
+    $('#colorWheel').click(spinWheel);
+=======
+>>>>>>> phase1_dev
 });
+
+
