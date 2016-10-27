@@ -33,6 +33,7 @@ var gaPictures = [];
 /**
  *  onSpin - This is currently not a spinner, but it will eventually be.
  */
+
 function onSpin() {
     console.log('onSpin');
 
@@ -126,8 +127,8 @@ function onCameraButton() {
 /**
  *  restaurantRequest - Start the AJAX call to get restaurant information.
  */
-function restaurantRequest() {
-    console.log('restaurantRequest');
+function restaurantRequest(latitude,longitude,food_type) {
+
 }
 
 /**
@@ -192,7 +193,7 @@ function onExitButton() {
  */
 $(document).ready(function () {
     console.log('Document ready');
-
+    restaurantRequest(-33.8670522,151.1957362,"Mexican");
     // Attach click handler for the main spin button.
 
     // Attach click handlers for the bottom menu buttons.
