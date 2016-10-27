@@ -61,7 +61,56 @@ var gaPictures = [];
 /**
  *  onSpin - This is currently not a spinner, but it will eventually be.
  */
+var map;
+var infowindow;
 
+function initMap() {
+    var pyrmont = {lat: 33.6305353, lng: -117.74319};
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: pyrmont,
+        zoom: 15
+    });
+
+    infowindow = new google.maps.InfoWindow();
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch({
+        location: pyrmont,
+        rankBy: google.maps.places.RankBy.DISTANCE,
+        types: ['food'],
+    }, callback);
+}
+
+function callback(results, status) {
+    console.log(results);
+    gaRestaurants=[];
+    for (var i=0;i<5;i++){
+        var restaurant={};
+        restaurant.name=results[i].name;
+        restaurant.address=results[i].vicinity;
+        gaRestaurants.push(restaurant);
+    }
+    restaurantDisplay();
+    /*
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+            createMarker(results[i]);
+        }
+    }*/
+}
+/*
+function createMarker(place) {
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(place.name);
+        infowindow.open(map, this);
+    });
+}
+*/
 function onSpin() {
     console.log('onSpin called');
     // TODO: Add some animation for the spinner.
