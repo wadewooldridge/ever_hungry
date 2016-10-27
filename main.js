@@ -64,7 +64,7 @@ var gaPictures = [];
 var map;
 var infowindow;
 
-function initMap() {
+function initMap(food) {
     var pyrmont = {lat: 33.6305353, lng: -117.74319};
 
     map = new google.maps.Map(document.getElementById('map'), {
@@ -78,6 +78,7 @@ function initMap() {
         location: pyrmont,
         rankBy: google.maps.places.RankBy.DISTANCE,
         types: ['food'],
+        keyword:food
     }, callback);
 }
 
@@ -90,7 +91,11 @@ function callback(results, status) {
         restaurant.address=results[i].vicinity;
         gaRestaurants.push(restaurant);
     }
-    restaurantDisplay();
+    if(gaRestaurants.length!==0)
+        restaurantSuccess();
+    else{
+        restaurantError();
+    }
     /*
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
@@ -118,13 +123,13 @@ function onSpin() {
     // Select a random food type from the gaFoodTypes[] array.
     gFoodTypeIndex = Math.floor(Math.random()* gaFoodTypes.length);
     $('#display-food-type').text(gaFoodTypes[gFoodTypeIndex]);
-
+    initMap(gaFoodTypes[gFoodTypeIndex]);
     // Call the restaurant lookup to start the next part of the process.
     restaurantRequest();
 
     // TEMPORARY CODE: manually call to display the restaurants (should come from restaurantSuccess).
     restaurantClearDisplay();
-    restaurantDisplay();
+    //restaurantDisplay();
 }
 
 /**
@@ -268,6 +273,7 @@ function restaurantError() {
  */
 function restaurantSuccess() {
     console.log('restaurantSuccess');
+    restaurantDisplay();
 }
 
 /**
