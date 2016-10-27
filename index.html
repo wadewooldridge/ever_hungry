@@ -3,6 +3,7 @@
 <link rel="stylesheet" type="text/css" href="normalize.css">
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 <head>
     <meta charset="UTF-8">
 
@@ -34,7 +35,6 @@
             <div class="wheel">
                 <div class="wheel-left">
                     <div id="display-food-type"></div>
-                    <hr>
                     <button id="spin-button">Spin</button>
                 </div>
                 <div class="wheel-right">
@@ -52,8 +52,8 @@
             <div id="settings-modal-wrapper" class="modal-wrapper">
                 <h4>What goes on the wheel?</h4>
             </div>
-            <div id="camera-modal-wrapper" class="modal-wrapper">
-                Here is the camera modal.
+            <div id="photo-modal-wrapper" class="modal-wrapper">
+                Here is the photo modal.
             </div>
             <div id="directions-modal-wrapper" class="modal-wrapper">
                 Here is the directions modal.
@@ -78,9 +78,9 @@
                     settings
                 </div>
             </div>
-            <div class="camera-button-wrapper">
-                <div class="camera-button">
-                    camera
+            <div class="photo-button-wrapper">
+                <div class="photo-button">
+                    photo
                 </div>
             </div>
             <div class="direction-button-wrapper">
@@ -88,11 +88,11 @@
                     directions
                 </div>
             </div>
-            <div class="exit-button-wrapper">
-                <div class="exit-button">
-                    exit
-                </div>
-            </div>
+            <!--<div class="exit-button-wrapper">-->
+                <!--<div class="exit-button">-->
+                    <!--exit-->
+                <!--</div>-->
+            <!--</div>-->
         </footer>
     </div>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZISd2dj9XOcOLvQC162avw5TOoS7d9_k&libraries=places" async defer></script>
