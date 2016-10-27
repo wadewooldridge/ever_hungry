@@ -158,6 +158,15 @@ div.wheel-right {
     font-weight: bold;
 }
 
+/** Help modal styling. **/
+#help-modal-wrapper {
+    padding-right: 5%;
+}
+
+.product-name {
+    font-weight: bold;
+    font-style: italic;
+}
 /** Test Display for button generated food type **/
 #display-food-type {
     border: 1px solid black;

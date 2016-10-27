@@ -108,28 +108,19 @@ function onSpin() {
 }
 
 /**
- *  onHelpButton
+ *  onHelpButton - Bring up the help modal.
  */
 function onHelpButton() {
     console.log('onHelpButton');
-
-    // TODO: Show the modal div for the initial help page.
     $('#help-modal-wrapper').addClass('display');
 }
 
 /**
- *  Button handlers for navigating the help menu.
+ *  onHelpOkButton - Close the help modal.
  */
-function onHelpPreviousButton() {
-    console.log('onHelpPreviousButton');
-}
-
-function onHelpNextButton() {
-    console.log('onHelpNextButton');
-}
-
-function onHelpExitButton() {
-    console.log('onHelpExitButton');
+function onHelpOkButton() {
+    console.log('onHelpOkButton');
+    $('#help-modal-wrapper').removeClass('display');
 }
 
 /**
@@ -493,11 +484,9 @@ $(document).ready(function () {
     $('.directions-button').click(onDirectionsButton);
 
     // Attach click handlers for the help modal.
-    $('.help-previous-button').click(onHelpPreviousButton);
-    $('.help-next-button').click(onHelpNextButton);
-    $('.help-exit-button').click(onHelpExitButton);
+    $('#help-ok-button').click(onHelpOkButton);
 
-    // Attach click handlers for the location module.
+    // Attach click handlers for the location modal.
     $('#location-current-button').click(locationRequestCurrent);
     $('#location-zip-button').click(locationRequestZip);
     $('#location-ok-button').click(onLocationOkButton);
