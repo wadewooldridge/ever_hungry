@@ -109,10 +109,9 @@ div.wheel-right {
     display: inline-block;
     width: 60%;
     height: 100%;
-    position: absolute;
-    clear: none;
+    position: relative;
     font-size: initial;
-    top: 10%;
+    vertical-align: top;
 }
 
 .restaurant {
@@ -125,34 +124,30 @@ div.wheel-right {
     margin: auto;
     text-align: center;
 }
-.wheel-right .restaurant:first-child, .wheel-right .restaurant:last-child {
-    background-color: #FAC158;
-}
-.wheel-right .restaurant:first-child {
-    border-radius: 100% 100% 10% 10%;
-}
-.wheel-right .restaurant:nth-child(2) {
-    border-radius: 50% 50% 5% 5%;
-    background-color: #84d644;
-    height: 10%;
-    width: 100%;
-}
-.wheel-right .restaurant:nth-child(3){
-    border-radius: 3% 3% 10% 10%;
-    background-color: #fb3434;
-    height: 10%;
-}
-.wheel-right .restaurant:nth-child(4) {
-    border-radius: 3% 3% 10% 10%;
-    background-color: #a77932;
-    height: 10%;
-}
-.wheel-right .restaurant:last-child {
-    border-radius: 3% 3% 10% 10%;
-}
-.restaurant p {
-    /*margin: 0;*/
-}
+/*.wheel-right .restaurant:first-child, .wheel-right .restaurant:last-child {*/
+    /*background-color: #FAC158;*/
+/*}*/
+/*.wheel-right .restaurant:first-child {*/
+    /*border-radius: 100% 100% 10% 10%;*/
+/*}*/
+/*.wheel-right .restaurant:nth-child(2) {*/
+    /*border-radius: 3% 3% 10% 10%;*/
+    /*background-color: #84d644;*/
+/*}*/
+/*.wheel-right .restaurant:nth-child(3){*/
+    /*border-radius: 3% 3% 10% 10%;*/
+    /*background-color: #fb3434;*/
+/*}*/
+/*.wheel-right .restaurant:nth-child(2) {*/
+    /*border-radius: 3% 3% 10% 10%;*/
+    /*background-color: #a77932;*/
+/*}*/
+/*.wheel-right .restaurant:last-child {*/
+    /*border-radius: 3% 3% 10% 10%;*/
+/*}*/
+/*.restaurant p {*/
+    /*!*margin: 0;*!*/
+/*}*/
 
 .restaurant-name {
     font-weight: bold;
@@ -228,27 +223,44 @@ div.wheel-right {
 =============================== */
 
 @media (max-width: 768px) {
-    /*.everything-wrapper,*/
     .header-wrapper,
     .wheel-content-wrapper,
     .wheel,
-    .wheel-left,
-    .wheel-right,
-    .footer-wrapper
+    .footer-wrapper,
+    .restaurant
     {
         display: block;
         width: 100%;
         margin: initial;
+        float: initial;
     }
+    .everything-wrapper {
+        height: 150vh;
+        margin: 0;
+        width: 100vw;
 
-    .main-nav {
-        padding-left: initial;
     }
-
-    .main-nav li {
-        margin-top: 15px;
+    #div-wheel-left,
+    #div-wheel-right
+    {
+        width: 100%;
     }
-    .main-banner {
-        display: none;
+    .wheel {
+        height: 80%;
+        box-sizing: border-box;
+    }
+    #div-wheel-right {
+        height: 70%;
+        margin: 5% 0;
+    }
+    #div-wheel-left {
+        height: 30%;
+        margin: 3% 0;
+    }
+    #display-food-type, #spin-button {
+        width: 100%;
+        margin: 0 0 5%;
+        height: 50%;
+        display: block;
     }
 }
