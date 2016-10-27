@@ -3,7 +3,7 @@
  *
  *  Basic layout of file follows basic layout of application:
  *                      Spinner
- *  Help  Location  Settings  Camera  Directions  Exit
+ *  Help  Location  Settings  photo  Directions  Exit
  */
 /**
  *  @type {string[]}    Valid food types (categories).
@@ -40,7 +40,7 @@ var infowindow;
 
 
 /**
- *  Global data from the camera modal.
+ *  Global data from the photo modal.
  *  @type {object[]}    Array of objects describing the restaurants for the pictures.
  */
 var gaPictures = [];
@@ -262,13 +262,13 @@ function onSettingsOkButton() {
 }
 
 /**
- *  onCameraButton
+ *  onPhotoButton
  */
-function onCameraButton() {
-    console.log('onCameraButton');
+function onPhotoButton() {
+    console.log('onPhotoButton');
 
     // TODO: Show the modal div for the images.
-    $('#camera-modal-wrapper').addClass('display');
+    $('#photo-modal-wrapper').addClass('display');
 
     // TODO: Kick off photo lookup for the restaurants.
 
@@ -431,7 +431,7 @@ $(document).ready(function () {
     $('.help-button').click(onHelpButton);
     $('.location-button').click(onLocationButton);
     $('.settings-button').click(onSettingsButton);
-    $('.camera-button').click(onCameraButton);
+    $('.photo-button').click(onPhotoButton);
     $('.directions-button').click(onDirectionsButton);
     $('.exit-button').click(onExitButton);
 
