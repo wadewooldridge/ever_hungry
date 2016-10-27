@@ -31,6 +31,28 @@ var gaFoodTypes = [];
 var gFoodTypeIndex = null;
 
 /**
+ *  Global data from the spin and restaurant search.
+ */
+var gaRestaurants = [
+    {
+        name:       'Jimboy\'s Tacos',
+        address:    '27882 Aliso Creek Road',
+        city:       'Aliso Viejo',
+        state:      'CA',
+        zip:        '92656',
+        location:   {lat: '123.45', lng: '-117.55'}
+    },
+    {
+        name:       'Round Table Pizza',
+        address:    '22722 Lambert St.',
+        city:       'Lake Forest',
+        state:      'CA',
+        zip:        '92630',
+        location:   {lat: '122.34', lng: '-117.22'}
+    }
+];
+
+/**
  *  Global data from the camera modal.
  *  @type {object[]}    Array of objects describing the restaurants for the pictures.
  */
@@ -45,7 +67,10 @@ function onSpin() {
 
     // Select a random food type from the gaFoodTypes[] array.
     gFoodTypeIndex = Math.floor(Math.random()* gaFoodTypes.length);
-    return $('#display-food-type').text(gaFoodTypes[gFoodTypeIndex]);
+    $('#display-food-type').text(gaFoodTypes[gFoodTypeIndex]);
+
+    // Call the restaurant lookup to start the next part of the process.
+    restaurantRequest();
 }
 
 /**
