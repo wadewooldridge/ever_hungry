@@ -28,10 +28,13 @@
 }
 /** Footer Wrapper **/
 .footer-wrapper {
-    height: 1%;
+    height: 15%;
     width: 100%;
     background-color: #EF5350;
     margin: auto;
+    box-sizing: border-box;
+    position: relative;
+    font-size: 0;
 }
 /** Modal Wrapper (hidden) **/
 .modal-wrapper {
@@ -52,11 +55,17 @@
     display: inherit;
 }
 /** Footer Button Wrappers **/
-.help-button-wrapper, .location-button-wrapper, .settings-button-wrapper, .camera-button-wrapper, .direction-button-wrapper{
-    width: 16%;
+.help-button-wrapper,
+.location-button-wrapper,
+.settings-button-wrapper,
+.photo-button-wrapper
+{
+    width: 20%;
     height: 100%;
     display: inline-block;
     margin: auto;
+    position: relative;
+    font-size: initial;
 }
 
 /*********** Header content *************/
@@ -102,46 +111,94 @@
 /* Main content broken into sub-sections */
 
 /** Wheel **/
-
-.wheel-left {
-    display: block;
-    width: 25%;
-    float: left;
+.wheel {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    font-size: 0;
+}
+div.wheel-left {
+    display: inline-block;
+    width: 40%;
+    position: relative;
+    height: 100%;
+    font-size: initial;
 }
 
-.wheel-right {
-    display: block;
-    width: 70%;
+div.wheel-right {
+    display: inline-block;
+    width: 60%;
     height: 100%;
-    float: right;
+    position: relative;
+    font-size: initial;
+    vertical-align: top;
 }
 
 .restaurant {
     display: block;
-    width: 100%;
+    width: 90%;
     padding: 0.5em;
     border: 1px solid black;
+    position: relative;
+    box-sizing: border-box;
+    margin: auto;
+    text-align: center;
 }
-
-.restaurant p {
-    margin: 0;
-}
+/*.wheel-right .restaurant:first-child, .wheel-right .restaurant:last-child {*/
+    /*background-color: #FAC158;*/
+/*}*/
+/*.wheel-right .restaurant:first-child {*/
+    /*border-radius: 100% 100% 10% 10%;*/
+/*}*/
+/*.wheel-right .restaurant:nth-child(2) {*/
+    /*border-radius: 3% 3% 10% 10%;*/
+    /*background-color: #84d644;*/
+/*}*/
+/*.wheel-right .restaurant:nth-child(3){*/
+    /*border-radius: 3% 3% 10% 10%;*/
+    /*background-color: #fb3434;*/
+/*}*/
+/*.wheel-right .restaurant:nth-child(2) {*/
+    /*border-radius: 3% 3% 10% 10%;*/
+    /*background-color: #a77932;*/
+/*}*/
+/*.wheel-right .restaurant:last-child {*/
+    /*border-radius: 3% 3% 10% 10%;*/
+/*}*/
+/*.restaurant p {*/
+    /*!*margin: 0;*!*/
+/*}*/
 
 .restaurant-name {
     font-weight: bold;
 }
 
+/** Help modal styling. **/
+#help-modal-wrapper {
+    padding-right: 5%;
+}
+
+.product-name {
+    font-weight: bold;
+    font-style: italic;
+}
 /** Test Display for button generated food type **/
 #display-food-type {
     border: 1px solid black;
-    height:50px;
-    width: 100%;
+    height:15%;
+    width: 90%;
     text-align: center;
     text-transform: capitalize;
+    margin: 10% 5% 5%;
+    position: relative;
 }
 
 #spin-button {
-    width: 100%;
+    width: 60%;
+    height: 10%;
+    position: absolute;
+    margin: 0 21%;
+    border-radius: 100% 100%;
 }
 /*//for wheel*/
 
@@ -149,7 +206,6 @@
     display:block;
     webkit-transition: -webkit-transform 5s ease-out;
 }
-
 
 /*********** Footer content *************/
 /* Footer content broken into sub-sections */
@@ -164,18 +220,81 @@
 }
 /** Settings Button **/
 .settings-button-wrapper {
-    background-color: ##EF5350;
+    background-color: #EF5350;
 }
 /** Camera Button **/
 .camera-button-wrapper {
     background-color: lightslategrey;
 }
+/** photo Button **/
+.photo-button-wrapper {
+    background-color: yellow;
+}
 /** Direction Button **/
 .direction-button-wrapper {
     background-color: lightslategrey;
 }
+.bottom-icons {
+    width: 20px;
+    height: 20px;
+}
+/** Exit Button **/
+.exit-button-wrapper {
+    background-color: yellow;
+}
 
-.bottom-icons{
-    width:20px;
-    height:20px;
+
+/* Float Clearfix
+=============================== */
+
+.group::after {
+    content: " ";
+    display: table;
+    clear: both;
+}
+
+/* Media Queries
+=============================== */
+
+@media (max-width: 768px) {
+    .header-wrapper,
+    .wheel-content-wrapper,
+    .wheel,
+    .footer-wrapper,
+    .restaurant
+    {
+        display: block;
+        width: 100%;
+        margin: initial;
+        float: initial;
+    }
+    .everything-wrapper {
+        height: 150vh;
+        margin: 0;
+        width: 100vw;
+
+    }
+    #div-wheel-left,
+    #div-wheel-right
+    {
+        width: 100%;
+    }
+    .wheel {
+        height: 80%;
+        box-sizing: border-box;
+    }
+    #div-wheel-right {
+        height: 70%;
+        margin: 5% 0;
+    }
+    #div-wheel-left {
+        height: 30%;
+        margin: 3% 0;
+    }
+    #display-food-type, #spin-button {
+        width: 100%;
+        margin: 0 0 5%;
+        height: 50%;
+        display: block;
+    }
 }
