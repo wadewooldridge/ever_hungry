@@ -33,24 +33,11 @@ var gFoodTypeIndex = null;
 /**
  *  Global data from the spin and restaurant search.
  */
-var gaRestaurants = [
-    {
-        name:       'Jimboy\'s Tacos',
-        address:    '27882 Aliso Creek Road',
-        city:       'Aliso Viejo',
-        state:      'CA',
-        zip:        '92656',
-        location:   {lat: '123.45', lng: '-117.55'}
-    },
-    {
-        name:       'Round Table Pizza',
-        address:    '22722 Lambert St.',
-        city:       'Lake Forest',
-        state:      'CA',
-        zip:        '92630',
-        location:   {lat: '122.34', lng: '-117.22'}
-    }
-];
+var gaRestaurants = [];
+
+var map;
+var infowindow;
+
 
 /**
  *  Global data from the camera modal.
@@ -65,11 +52,11 @@ function photosRequest(latitude, longitude, foodType) {
     console.log('photosRequest');
 
     $.ajax({
-        data:{
+        data: {
             method: 'flickr.photos.search',
             api_key: 'ae2be88898748811d752637d4c7235c5',
             format: 'json',
-            text: foodType+'+restaurant',
+            text: foodType + '+restaurant',
             lat: latitude,
             lon: longitude,
             has_geo: 1,
@@ -81,11 +68,11 @@ function photosRequest(latitude, longitude, foodType) {
             nojsoncallback: 1
         },
         url: 'https://api.flickr.com/services/rest',
-        dataType:'json',
+        dataType: 'json',
         success: photosSuccess,
         error: photosError
-});
-
+    });
+}
 /**
  *  photosError - Handle error callback for getting photos information.
  */
@@ -110,7 +97,8 @@ function createPhotoUrl(){
  *  onSpin - This is currently not a spinner, but it will eventually be.
  */
 function onSpin() {
-    console.log('onSpin called');
+    console.log('onSpin');
+
     // TODO: Add some animation for the spinner.
 
     // Select a random food type from the gaFoodTypes[] array.
@@ -118,11 +106,7 @@ function onSpin() {
     $('#display-food-type').text(gaFoodTypes[gFoodTypeIndex]);
 
     // Call the restaurant lookup to start the next part of the process.
-    restaurantRequest();
-
-    // TEMPORARY CODE: manually call to display the restaurants (should come from restaurantSuccess).
-    restaurantClearDisplay();
-    restaurantDisplay();
+    initMap(gaFoodTypes[gFoodTypeIndex]);
 }
 
 /**
@@ -133,7 +117,6 @@ function onHelpButton() {
 
     // TODO: Show the modal div for the initial help page.
     $('#help-modal-wrapper').addClass('display');
-
 }
 
 /**
@@ -156,30 +139,74 @@ function onHelpExitButton() {
  */
 function onLocationButton() {
     console.log('onLocationButton');
-
-    // TODO: Show the modal div for selecting a zip code or the current location.
     $('#location-modal-wrapper').addClass('display');
+    // TODO: Show the modal div for selecting a zip code or the current location.
+    }
+
+/**
+ *  locationRequest - Start the AJAX call to get geolocation information.
+ */
+
+//first ajax call to get longitude and latitude from current location
+function locationRequestCurrent(){
+    $.ajax({
+        url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCJClzDDzSQKXcCAw9UlCm2C8L4ypBj-tg',
+        dataType: 'json',
+        method: 'post',
+        success: locationSuccessCurrent,
+        error: locationErrorCurrent
+        }
+    )
+}
+/**
+ *  locationError - Handle error callback for getting geolocation information.
+ */
+function locationErrorCurrent(){
+    console.log('locationErrorCurrent');
+}
+
+/**
+ *  locationSuccess - Handle success callback for getting geolocation information.
+ *  @param {object} data    Data returned from API.
+ */
+function locationSuccessCurrent(data){
+    console.log('locationSuccessCurrent');
+    console.log(data.location);
+    gCurrentLocation = data.location;
 }
 
 /**
  *  locationRequest - Start the AJAX call to get geolocation information.
  */
-function locationRequest() {
-    console.log('locationRequest');
+//second ajax call to get longitude and latitude from a zip code
+function locationRequestZip() {
+    console.log('locationRequest called');
+    var userInput = $('.userZip').val();
+    $.ajax({
+        url: 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAs52LcfkFdoztNiIHaSzj14C_td0CSK3w&address=' + userInput,
+        dataType: 'json',
+        method: 'post',
+        success: locationSuccessZip,
+        error: locationErrorZip
+        }
+    )
 }
-
 /**
  *  locationError - Handle error callback for getting geolocation information.
  */
-function locationError() {
-    console.warn('locationError');
+function locationErrorZip() {
+    console.warn('locationErrorZip');
 }
 
 /**
  *  locationSuccess - Handle success callback for getting geolocation information.
+ *  @param {object} data    Data returned from API.
  */
-function locationSuccess() {
-    console.log('locationSuccess');
+function locationSuccessZip(data) {
+    console.log('locationSuccessZip');
+    var userZipcode = data.results[0].geometry.location;
+    console.log(userZipcode);
+    gZipCode = userZipcode;
 }
 
 /**
@@ -248,10 +275,25 @@ function onCameraButton() {
 }
 
 /**
- *  restaurantRequest - Start the AJAX call to get restaurant information.
+ *  initMap - Create the Google map to search for matching local restaraunts.
+ *  @param {string} food    Food type to search for, e.g. 'mexican'.
  */
-function restaurantRequest() {
-    console.log('restaurantRequest');
+function initMap(food) {
+    var pyrmont = {lat: 33.6305353, lng: -117.74319};
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: pyrmont,
+        zoom: 15
+    });
+
+    infowindow = new google.maps.InfoWindow();
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch({
+        location: pyrmont,
+        rankBy: google.maps.places.RankBy.DISTANCE,
+        types: ['food'],
+        keyword:food
+    }, restaurantCallback);
 }
 
 /**
@@ -266,6 +308,8 @@ function restaurantError() {
  */
 function restaurantSuccess() {
     console.log('restaurantSuccess');
+    restaurantClearDisplay();
+    restaurantDisplay();
 }
 
 /**
@@ -285,13 +329,54 @@ function restaurantDisplay() {
 
     for (var i = 0; i < count; i++) {
         var r = gaRestaurants[i];
-        var fullAddress = r.address + '; ' + r.city + ', ' + r.state + ' ' + r.zip;
         var restaurantElem = $('<div>').addClass('restaurant');
         restaurantElem.append($('<p>').addClass('restaurant-name').text(r.name));
-        restaurantElem.append($('<p>').text(fullAddress));
+        restaurantElem.append($('<p>').text(r.address));
         containerElem.append(restaurantElem);
     }
 }
+
+/**
+ * restaurantCallback - Called from Google maps when we get restaurant data.
+ * @param {object[]}    results
+ * @param {boolean}     status  // TODO: Check this status?
+ */
+function restaurantCallback(results, status) {
+    console.log('restaurantCallback: ' + results);
+    gaRestaurants=[];
+    for (var i=0;i<5;i++){
+        var restaurant={};
+        restaurant.name=results[i].name;
+        restaurant.address=results[i].vicinity;
+        gaRestaurants.push(restaurant);
+    }
+    if(gaRestaurants.length!==0)
+        restaurantSuccess();
+    else{
+        restaurantError();
+    }
+    /*
+     if (status === google.maps.places.PlacesServiceStatus.OK) {
+     for (var i = 0; i < results.length; i++) {
+     createMarker(results[i]);
+     }
+     }*/
+}
+/*
+ function createMarker(place) {
+ var placeLoc = place.geometry.location;
+ var marker = new google.maps.Marker({
+ map: map,
+ position: place.geometry.location
+ });
+ google.maps.event.addListener(marker, 'click', function() {
+ infowindow.setContent(place.name);
+ infowindow.open(map, this);
+ });
+ }
+ */
+
+
 /**
  *  onDirectionsButton
  */
@@ -340,7 +425,6 @@ function onExitButton() {
  */
 $(document).ready(function () {
     console.log('Document ready');
-
     // Attach click handler for the main spin button.
     $('#spin-button').click(onSpin);
     // Attach click handlers for the bottom menu buttons.
@@ -355,5 +439,7 @@ $(document).ready(function () {
     $('.help-previous-button').click(onHelpPreviousButton);
     $('.help-next-button').click(onHelpNextButton);
     $('.help-exit-button').click(onHelpExitButton);
-
-})}
+});
+    //click handlers for the location module
+    $('#buttonLocationCurrent').click(locationRequestCurrent);
+    $('#buttonLocationZip').click(locationRequestZip);
