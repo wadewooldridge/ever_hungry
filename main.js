@@ -5,6 +5,11 @@
  *                      Spinner
  *  Help  Location  Settings  Camera  Directions  Exit
  */
+/**
+ *  @type {string[]}    Valid food types (categories).
+ */
+var gaValidFoodTypes = ['barbecue', 'burgers', 'italian', 'mediterranean', 'mexican', 'pizza', 'sandwiches',
+                        'seafood', 'sushi', 'thai'];
 
 /**
  *  Global data from the location modal.
@@ -21,8 +26,31 @@ var gZipCode = null;
  *  @type {object[]}    Array of valid food types.
  *  @type {number}      Current index in the array.
  */
+var gFoodTypesConfigured = false;
 var gaFoodTypes = [];
 var gFoodTypeIndex = null;
+
+/**
+ *  Global data from the spin and restaurant search.
+ */
+var gaRestaurants = [
+    {
+        name:       'Jimboy\'s Tacos',
+        address:    '27882 Aliso Creek Road',
+        city:       'Aliso Viejo',
+        state:      'CA',
+        zip:        '92656',
+        location:   {lat: '123.45', lng: '-117.55'}
+    },
+    {
+        name:       'Round Table Pizza',
+        address:    '22722 Lambert St.',
+        city:       'Lake Forest',
+        state:      'CA',
+        zip:        '92630',
+        location:   {lat: '122.34', lng: '-117.22'}
+    }
+];
 
 /**
  *  Global data from the camera modal.
@@ -35,12 +63,19 @@ var gaPictures = [];
  */
 
 function onSpin() {
-    console.log('onSpin');
-
+    console.log('onSpin called');
     // TODO: Add some animation for the spinner.
 
     // Select a random food type from the gaFoodTypes[] array.
+    gFoodTypeIndex = Math.floor(Math.random()* gaFoodTypes.length);
+    $('#display-food-type').text(gaFoodTypes[gFoodTypeIndex]);
 
+    // Call the restaurant lookup to start the next part of the process.
+    restaurantRequest();
+
+    // TEMPORARY CODE: manually call to display the restaurants (should come from restaurantSuccess).
+    restaurantClearDisplay();
+    restaurantDisplay();
 }
 
 /**
@@ -105,10 +140,51 @@ function locationSuccess() {
  */
 function onSettingsButton() {
     console.log('onSettingsButton');
+    var wrapperElem = $('#settings-modal-wrapper');
 
-    // TODO: Show the modal div for selecting which types of food to select from.
-    $('#settings-modal-wrapper').addClass('display');
+    // TODO: Load the last settings from localStorage.
 
+    // Go through gaValidFoodTypes and set the checkboxes on the settings-modal.
+    if (!gFoodTypesConfigured) {
+        // Add checkboxes for each valid type of food.
+        for (var i = 0; i < gaValidFoodTypes.length; i++) {
+            var pElem = $('<p>');
+            pElem.append($('<input>', {type: 'checkbox', checked: 'checked', id: 'checkbox' + i}));
+            pElem.append($('<label>').html('&nbsp;' + gaValidFoodTypes[i]));
+            wrapperElem.append(pElem);
+        }
+
+        // Add the OK button.
+        var buttonElem = $('<button>').text('OK').click(onSettingsOkButton);
+        wrapperElem.append(buttonElem);
+    }
+
+    gFoodTypesConfigured = true;
+
+    // Display the settings modal.
+    wrapperElem.addClass('display');
+
+    // TODO: Save the settings to localStorage.
+
+}
+
+/**
+ *  onSettingOkButton - Save settings after the user clicks OK on the setting modal.
+ */
+function onSettingsOkButton() {
+    console.log('onSettingsOkButton');
+    $('#settings-modal-wrapper').removeClass('display');
+    gaFoodTypes = [];
+
+    // Check each checkbox in turn.
+    for (var i = 0; i < gaValidFoodTypes.length; i++) {
+        var checked = $('#checkbox' + i).prop('checked');
+
+        if (checked) {
+            gaFoodTypes.push(gaValidFoodTypes[i]);
+        }
+    }
+    // console.log('onSettingsOkButton: ' + gaFoodTypes);
 }
 
 /**
@@ -145,6 +221,30 @@ function restaurantSuccess() {
     console.log('restaurantSuccess');
 }
 
+/**
+ *  restaurantClearDisplay - Remove any old restaurants from the DOM.
+ */
+function restaurantClearDisplay() {
+    console.log('restaurantClearDisplay');
+    $('.restaurant').remove();
+}
+/**
+ *  restaurantDisplay - Update the DOM with the restaurants in gaRestaurants.
+ */
+function restaurantDisplay() {
+    console.log('restaurantDisplay');
+    var count = Math.min(gaRestaurants.length, 5);
+    var containerElem = $('.wheel-right');
+
+    for (var i = 0; i < count; i++) {
+        var r = gaRestaurants[i];
+        var fullAddress = r.address + '; ' + r.city + ', ' + r.state + ' ' + r.zip;
+        var restaurantElem = $('<div>').addClass('restaurant');
+        restaurantElem.append($('<p>').addClass('restaurant-name').text(r.name));
+        restaurantElem.append($('<p>').text(fullAddress));
+        containerElem.append(restaurantElem);
+    }
+}
 /**
  *  onDirectionsButton
  */
@@ -195,7 +295,7 @@ $(document).ready(function () {
     console.log('Document ready');
     restaurantRequest(-33.8670522,151.1957362,"Mexican");
     // Attach click handler for the main spin button.
-
+    $('#spin-button').click(onSpin);
     // Attach click handlers for the bottom menu buttons.
     $('.help-button').click(onHelpButton);
     $('.location-button').click(onLocationButton);

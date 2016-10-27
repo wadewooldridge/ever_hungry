@@ -5,8 +5,12 @@
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <head>
     <meta charset="UTF-8">
+
     <title>Hungry Ever?</title>
     <script src="main.js"></script>
+
+    <title>Ever Hungry?</title>
+
 </head>
 <body>
     <div class="everything-wrapper">
@@ -20,7 +24,14 @@
         </header>
         <div class="wheel-content-wrapper">
             <div class="wheel">
-                wheel
+                <div class="wheel-left">
+                    <div id="display-food-type"></div>
+                    <hr>
+                    <button id="spin-button">Spin</button>
+                </div>
+                <div class="wheel-right">
+                    <!-- Restaurant list is created here. -->
+                </div>
             </div>
             <div id="help-modal-wrapper" class="modal-wrapper">
                 Here is the help modal.
@@ -29,7 +40,7 @@
                 Here is the location modal.
             </div>
             <div id="settings-modal-wrapper" class="modal-wrapper">
-                Here is the settings modal.
+                <h4>What goes on the wheel?</h4>
             </div>
             <div id="camera-modal-wrapper" class="modal-wrapper">
                 Here is the camera modal.
