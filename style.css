@@ -204,13 +204,13 @@ div.wheel-right {
 }
 /*//for wheel*/
 
-#colorWheel{
+#color-wheel{
     display: inline-block;
-    height: 70%;
-    width: auto;
-    webkit-transition: -webkit-transform 5s ease-out;
+    width: 80%;
+    margin-left: 10%;
+    height: auto;
     position: absolute;
-    margin: 15% 0;
+    -webkit-transition: -webkit-transform 2s ease-out;
 }
 
 /*********** Footer content *************/
