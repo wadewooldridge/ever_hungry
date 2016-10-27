@@ -411,7 +411,11 @@ function initMap(food) {
  *  restaurantError - Handle error callback for getting restaurant information.
  */
 function restaurantError() {
-    console.warn('restaurantError');
+    console.log("Error");
+    setTimeout(function(){
+        $("#display-food-type").text("Sorry, no matches. Please try again.");
+    },1000)
+
 }
 
 /**
@@ -468,14 +472,16 @@ function restaurantDisplay() {
 function restaurantCallback(results, status) {
     console.log('restaurantCallback: ' + results);
     gaRestaurants=[];
-    for (var i=0;i<5;i++){
-        var restaurant={};
-        restaurant.name=results[i].name;
-        restaurant.address=results[i].vicinity;
-        gaRestaurants.push(restaurant);
-    }
-    if(gaRestaurants.length!==0)
+    console.log(gaRestaurants.length);
+    if(results.length!==0) {
+        for (var i = 0; i < 5; i++) {
+            var restaurant = {};
+            restaurant.name = results[i].name;
+            restaurant.address = results[i].vicinity;
+            gaRestaurants.push(restaurant);
+        }
         restaurantSuccess();
+    }
     else{
         restaurantError();
     }
