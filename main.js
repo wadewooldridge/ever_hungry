@@ -13,20 +13,15 @@ var gaValidFoodTypes = ['barbecue', 'burgers', 'italian', 'mediterranean', 'mexi
 
 /**
  *  Global data from the location modal.
- *  @type {boolean}     True for use current location, false for use zip code.
  *  @type {object}      Object for current location (contains latitude and longitude).
- *  @type {string}      String with current zip code.
  */
-var gUseCurrentLocation = false;
-var gCurrentLocation = null;
-var gZipCode = null;
+var gLocation = null;
 
 /**
  *  Global data from the settings modal for selecting food types.
  *  @type {object[]}    Array of valid food types.
  *  @type {number}      Current index in the array.
  */
-var gFoodTypesConfigured = false;
 var gaFoodTypes = [];
 var gFoodTypeIndex = null;
 
@@ -140,8 +135,15 @@ function onHelpExitButton() {
 function onLocationButton() {
     console.log('onLocationButton');
     $('#location-modal-wrapper').addClass('display');
-    // TODO: Show the modal div for selecting a zip code or the current location.
-    }
+}
+
+/**
+ *  onLocationOkButton
+ */
+function onLocationOkButton() {
+    console.log('onLocationOkButton');
+    $('#location-modal-wrapper').removeClass('display');
+}
 
 /**
  *  locationRequest - Start the AJAX call to get geolocation information.
@@ -172,7 +174,7 @@ function locationErrorCurrent(){
 function locationSuccessCurrent(data){
     console.log('locationSuccessCurrent');
     console.log(data.location);
-    gCurrentLocation = data.location;
+    gLocation = data.location;
 }
 
 /**
@@ -180,8 +182,13 @@ function locationSuccessCurrent(data){
  */
 //second ajax call to get longitude and latitude from a zip code
 function locationRequestZip() {
-    console.log('locationRequest called');
+    console.log('locationRequest');
     var userInput = $('.userZip').val();
+    if (userInput === '') {
+        console.log('locationRequest: empty zip code');
+        return;
+    }
+
     $.ajax({
         url: 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAs52LcfkFdoztNiIHaSzj14C_td0CSK3w&address=' + userInput,
         dataType: 'json',
@@ -206,7 +213,26 @@ function locationSuccessZip(data) {
     console.log('locationSuccessZip');
     var userZipcode = data.results[0].geometry.location;
     console.log(userZipcode);
-    gZipCode = userZipcode;
+    gLocation = userZipcode;
+}
+
+/**
+ *  buildSettingsModal - Populate the settings modal based on gaValidFoodTypes.
+ */
+function buildSettingsModal() {
+    console.log('buildSettingsModal');
+    var wrapperElem = $('#settings-modal-wrapper');
+
+    for (var i = 0; i < gaValidFoodTypes.length; i++) {
+        var pElem = $('<p>');
+        pElem.append($('<input>', {type: 'checkbox', checked: 'checked', id: 'checkbox' + i}));
+        pElem.append($('<label>').html('&nbsp;' + gaValidFoodTypes[i]));
+        wrapperElem.append(pElem);
+    }
+
+    // Add the OK button.
+    var buttonElem = $('<button>').text('OK').click(onSettingsOkButton);
+    wrapperElem.append(buttonElem);
 }
 
 /**
@@ -217,23 +243,6 @@ function onSettingsButton() {
     var wrapperElem = $('#settings-modal-wrapper');
 
     // TODO: Load the last settings from localStorage.
-
-    // Go through gaValidFoodTypes and set the checkboxes on the settings-modal.
-    if (!gFoodTypesConfigured) {
-        // Add checkboxes for each valid type of food.
-        for (var i = 0; i < gaValidFoodTypes.length; i++) {
-            var pElem = $('<p>');
-            pElem.append($('<input>', {type: 'checkbox', checked: 'checked', id: 'checkbox' + i}));
-            pElem.append($('<label>').html('&nbsp;' + gaValidFoodTypes[i]));
-            wrapperElem.append(pElem);
-        }
-
-        // Add the OK button.
-        var buttonElem = $('<button>').text('OK').click(onSettingsOkButton);
-        wrapperElem.append(buttonElem);
-    }
-
-    gFoodTypesConfigured = true;
 
     // Display the settings modal.
     wrapperElem.addClass('display');
@@ -279,17 +288,17 @@ function onPhotoButton() {
  *  @param {string} food    Food type to search for, e.g. 'mexican'.
  */
 function initMap(food) {
-    var pyrmont = {lat: 33.6305353, lng: -117.74319};
+    // var pyrmont = {lat: 33.6305353, lng: -117.74319};
 
     map = new google.maps.Map(document.getElementById('map'), {
-        center: pyrmont,
+        center: gLocation,
         zoom: 15
     });
 
     infowindow = new google.maps.InfoWindow();
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
-        location: pyrmont,
+        location: gLocation,
         rankBy: google.maps.places.RankBy.DISTANCE,
         types: ['food'],
         keyword:food
@@ -410,17 +419,6 @@ function directionsSuccess() {
 }
 
 /**
- *  onExitButton
- */
-function onExitButton() {
-    console.log('onExitButton');
-
-    // TODO: Show the modal div for 'Are you sure?'  Exit if so.
-    $('#exit-modal-wrapper').addClass('display');
-
-}
-
-/**
  *  Document ready.
  */
 $(document).ready(function () {
@@ -433,13 +431,21 @@ $(document).ready(function () {
     $('.settings-button').click(onSettingsButton);
     $('.photo-button').click(onPhotoButton);
     $('.directions-button').click(onDirectionsButton);
-    $('.exit-button').click(onExitButton);
 
     // Attach click handlers for the help modal.
     $('.help-previous-button').click(onHelpPreviousButton);
     $('.help-next-button').click(onHelpNextButton);
     $('.help-exit-button').click(onHelpExitButton);
+
+    // Attach click handlers for the location module.
+    $('#location-current-button').click(locationRequestCurrent);
+    $('#location-zip-button').click(locationRequestZip);
+    $('#location-ok-button').click(onLocationOkButton);
+
+    // Start by getting the current location as the default.
+    locationRequestCurrent();
+
+    // Build the settings modal from the valid food type.
+    buildSettingsModal();
+
 });
-    //click handlers for the location module
-    $('#buttonLocationCurrent').click(locationRequestCurrent);
-    $('#buttonLocationZip').click(locationRequestZip);
