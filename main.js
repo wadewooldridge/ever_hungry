@@ -54,16 +54,16 @@ var gaPictures = [];
  */
 function photosRequest(latitude, longitude, foodType) {
     console.log('photosRequest');
+
     // Set default parameters if not passed.
     if (latitude === undefined || latitude === 0) {
         latitude = gLocation.lat;
     }
-    if (longitude === undefined || latitude === 0) {
-        latitude = gLocation.lng;
+    if (longitude === undefined || longitude === 0) {
+        longitude = gLocation.lng;
     }
-    if (foodType === undefined || foodType === '') {
-        foodType = gaFoodTypes[gFoodTypeIndex];
-    }
+
+    foodType = gaFoodTypes[gFoodTypeIndex];
 
     // Build the AJAX call to start the photo search.
     $.ajax({
@@ -71,9 +71,9 @@ function photosRequest(latitude, longitude, foodType) {
             method: 'flickr.photos.search',
             api_key: 'ae2be88898748811d752637d4c7235c5',
             format: 'json',
-            text: foodType + '+restaurant',
-            lat: latitude,
-            lon: longitude,
+            text: foodType + '+food',
+            // lat: latitude,
+            // lon: longitude,
             has_geo: 1,
             media: 'photos',
             radius: 1,
@@ -99,7 +99,7 @@ function photosError() {
  *  photosSuccess - Handle success callback for getting photos information.
  */
 function photosSuccess(pictures_data) {
-    console.log('photosSuccess');
+    console.log('photosSuccess', pictures_data);
     gaPictures = pictures_data.photos.photo;
     photosDisplay();
 }
@@ -449,15 +449,21 @@ function restaurantDisplay() {
         restaurantElem.append($('<p>').addClass('restaurant-name').text(r.name));
         restaurantElem.append($('<p>').text(r.address));
 
-        // Add buttons for the photos and directions.
-        restaurantElem.append($('<button>').text('Photos').click(function () {
-            photosRequest();
-            onPhotosButton();
-        }));
-        restaurantElem.append($('<button>').text('Directions').click(function () {
-            directionsRequest();
-            onDirectionsButton();
-        }));
+        // Create a  closure so click handlers have the correct information added to them
+        (function(){
+            var rest = gaRestaurants[i];
+
+            // Add buttons for the photos and directions.
+            restaurantElem.append($('<button>').text('Photos').click(function () {
+                console.log('this is food type in rest display:', rest);
+                photosRequest(0, 0);
+                onPhotosButton();
+            }));
+            restaurantElem.append($('<button>').text('Directions').click(function () {
+                directionsRequest();
+                onDirectionsButton();
+            }));
+        })();
 
         // Append the formatted restaurant div to its container.
         containerElem.append(restaurantElem);
@@ -470,8 +476,9 @@ function restaurantDisplay() {
  * @param {boolean}     status  // TODO: Check this status?
  */
 function restaurantCallback(results, status) {
-    console.log('restaurantCallback: ' + results);
+    console.log('restaurantCallback: ', results);
     gaRestaurants=[];
+
     console.log(gaRestaurants.length);
     if(results.length!==0) {
         for (var i = 0; i < 5; i++) {
