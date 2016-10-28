@@ -260,7 +260,7 @@ div.wheel-right {
 /*}*/
 /** Location Button **/
 #location-zip-button {
-    background: #EF9A9A;
+    background: #E53935;
     height: 9%;
     width: 39%;
     border: white;
@@ -302,7 +302,8 @@ hr{
 
 #location-ok-button,
 #help-ok-button,
-#settings-ok-button {
+#settings-ok-button,
+#photos-ok-button{
     position: absolute;
     right: 5%;
     bottom:5%;
@@ -310,13 +311,19 @@ hr{
     height: 10%;
     border-radius: 7px;
     border: white;
-    background: #FF5252;
+    background: #C62828;
     color:white;
     font-family: 'Oswald', sans-serif;
     font-size:159%;
+    cursor:pointer;
+
 }
 
-#help
+#help-modal-wrapper, #location-modal-wrapper, #settings-modal-wrapper{
+    border-radius: 10px;
+    background: #FFCDD2;
+    box-shadow: 16px 16px 5px #808080;
+}
 /** Settings Button **/
 
 #settings-modal-wrapper{
