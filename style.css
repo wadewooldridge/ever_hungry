@@ -428,4 +428,13 @@ hr {
     #help-modal-wrapper p {
         font-size: 75%;
     }
+    .bottom-icons {
+        width: 25%;
+        height: auto;
+        position: relative;
+        display: block;
+        margin: 33px auto;
+        vertical-align: center;
+        top: 30%;
+    }
 }
