@@ -8,8 +8,9 @@
 /**
  *  @type {string[]}    Valid food types (categories).
  */
-var gaValidFoodTypes = ['barbecue', 'burgers', 'italian', 'mediterranean', 'mexican', 'pizza', 'sandwiches',
-                        'seafood', 'sushi', 'thai'];
+var gaValidFoodTypes = ['american', 'barbecue', 'buffet', 'burgers', 'chinese', 'fast casual', 'fast food',
+                        'indian', 'italian', 'mediterranean', 'mexican', 'pizza', 'pub', 'sandwiches',
+                        'seafood', 'sushi', 'tapas', 'teppanyaki', 'thai', 'vegetarian'];
 
 /**
  *  Global data for spinner.
@@ -54,16 +55,16 @@ var gaPictures = [];
  */
 function photosRequest(latitude, longitude, foodType) {
     console.log('photosRequest');
+
     // Set default parameters if not passed.
     if (latitude === undefined || latitude === 0) {
         latitude = gLocation.lat;
     }
-    if (longitude === undefined || latitude === 0) {
-        latitude = gLocation.lng;
+    if (longitude === undefined || longitude === 0) {
+        longitude = gLocation.lng;
     }
-    if (foodType === undefined || foodType === '') {
-        foodType = gaFoodTypes[gFoodTypeIndex];
-    }
+
+    foodType = gaFoodTypes[gFoodTypeIndex];
 
     // Build the AJAX call to start the photo search.
     $.ajax({
@@ -71,9 +72,9 @@ function photosRequest(latitude, longitude, foodType) {
             method: 'flickr.photos.search',
             api_key: 'ae2be88898748811d752637d4c7235c5',
             format: 'json',
-            text: foodType + '+restaurant',
-            lat: latitude,
-            lon: longitude,
+            text: foodType + '+food',
+            // lat: latitude,
+            // lon: longitude,
             has_geo: 1,
             media: 'photos',
             radius: 1,
@@ -99,9 +100,13 @@ function photosError() {
  *  photosSuccess - Handle success callback for getting photos information.
  */
 function photosSuccess(pictures_data) {
-    console.log('photosSuccess');
+    console.log('photosSuccess', pictures_data);
     gaPictures = pictures_data.photos.photo;
-    photosDisplay();
+    $("#photos-modal-wrapper").text("Searching...")
+    setTimeout(function(){
+        photosDisplay();
+    },1000);
+
 }
 
 /**
@@ -151,7 +156,7 @@ function onSpin() {
  */
 function onHelpButton() {
     console.log('onHelpButton');
-    $('#help-modal-wrapper').addClass('display');
+    $('#help-modal-wrapper').toggle('drop', {direction: 'down'}, 1000).addClass('display');
 }
 
 /**
@@ -159,7 +164,7 @@ function onHelpButton() {
  */
 function onHelpOkButton() {
     console.log('onHelpOkButton');
-    $('#help-modal-wrapper').removeClass('display');
+    $('#help-modal-wrapper').toggle('drop', {direction: 'down'}, 1000);
 }
 
 /**
@@ -167,7 +172,7 @@ function onHelpOkButton() {
  */
 function onLocationButton() {
     console.log('onLocationButton');
-    $('#location-modal-wrapper').addClass('display');
+    $('#location-modal-wrapper').toggle('drop', {direction: 'down'}, 1000);
 }
 
 /**
@@ -175,7 +180,7 @@ function onLocationButton() {
  */
 function onLocationOkButton() {
     console.log('onLocationOkButton');
-    $('#location-modal-wrapper').removeClass('display');
+    $('#location-modal-wrapper').toggle('drop', {direction: 'down'}, 1000);
 }
 
 /**
@@ -254,9 +259,10 @@ function locationSuccessZip(data) {
  */
 function buildSettingsModal() {
     console.log('buildSettingsModal');
-    var wrapperElem = $('#settings-modal-wrapper');
+    var wrapperElems = [$('#settings-left'), $('#settings-right')];
 
     for (var i = 0; i < gaValidFoodTypes.length; i++) {
+        var wrapperElem = wrapperElems[(i < (gaValidFoodTypes.length / 2)) ? 0 : 1];
         var pElem = $('<p>');
         pElem.append($('<input>', {type: 'checkbox', checked: 'checked', id: 'checkbox' + i}));
         pElem.append($('<label>').html('&nbsp;' + gaValidFoodTypes[i]));
@@ -264,6 +270,10 @@ function buildSettingsModal() {
     }
 
     // Add the OK button.
+    wrapperElem = $('#settings-modal-wrapper')
+    wrapperElem.append($('<br>'));
+    wrapperElem.append($('<hr>'));
+    wrapperElem.append($('<br>'));
     var buttonElem = $('<button>').text('OK').click(onSettingsOkButton);
     wrapperElem.append(buttonElem);
 }
@@ -290,8 +300,8 @@ function loadSettingsFromLocalStorage() {
         retArray = JSON.parse(localStorage.getItem(gLocalStorageKey));
     }
 
-    // If it failed for either reason, assume the settings are all enabled.
-    if (retArray === null) {
+    // If it failed for either reason, or this is the wrong length, assume the settings are all enabled.
+    if (retArray === null || retArray.length != gaValidFoodTypes.length) {
         console.log('loadSettingsFromLocalStorage: defaulting settings');
         gaFoodTypesChecked = [];
 
@@ -335,7 +345,7 @@ function onSettingsButton() {
     // TODO: Load the last settings from localStorage.
 
     // Display the settings modal.
-    wrapperElem.addClass('display');
+    wrapperElem.show('drop', {direction: 'down'}, 1000);
 
     // TODO: Save the settings to localStorage.
 
@@ -346,7 +356,7 @@ function onSettingsButton() {
  */
 function onSettingsOkButton() {
     console.log('onSettingsOkButton');
-    $('#settings-modal-wrapper').removeClass('display');
+    $('#settings-modal-wrapper').toggle('drop', {direction: 'down'}, 1000);
     gaFoodTypes = [];
 
     // Check each checkbox in turn.
@@ -371,7 +381,7 @@ function onPhotosButton() {
     console.log('onPhotosButton');
 
     // TODO: Show the modal div for the images.
-    $('#photos-modal-wrapper').addClass('display');
+    $('#photos-modal-wrapper').toggle('drop', {direction: 'right'}, 750).addClass('display');
 
     // TODO: Kick off photo lookup for the restaurants.
 
@@ -382,7 +392,7 @@ function onPhotosButton() {
  */
 function onPhotosOkButton() {
     console.log('onPhotosOkButton');
-    $('#photos-modal-wrapper').removeClass('display');
+    $('#photos-modal-wrapper').toggle('drop', {direction: 'right'}, 750).removeClass('display');
 }
 
 /**
@@ -450,6 +460,7 @@ function restaurantDisplay() {
         restaurantElem.append($('<p>').addClass('restaurant-name').text(r.name));
         restaurantElem.append($('<p>').addClass('restaurant-address').text(r.address));
 
+
         // Add buttons for the photos and directions.
         restaurantElem.append($('<button>').text('Photos').click(function () {
             photosRequest();
@@ -460,7 +471,6 @@ function restaurantDisplay() {
             onDirectionsButton();
             direction(gLocation["lat"],gLocation["lng"],$(this).parent().find(".restaurant-address").text());
         }));
-
         // Append the formatted restaurant div to its container.
         containerElem.append(restaurantElem);
     }
@@ -472,8 +482,9 @@ function restaurantDisplay() {
  * @param {boolean}     status  // TODO: Check this status?
  */
 function restaurantCallback(results, status) {
-    console.log('restaurantCallback: ' + results);
+    console.log('restaurantCallback: ', results);
     gaRestaurants=[];
+
     console.log(gaRestaurants.length);
     if(results.length!==0) {
         for (var i = 0; i < 5; i++) {
@@ -482,10 +493,23 @@ function restaurantCallback(results, status) {
             restaurant.address = results[i].vicinity;
             gaRestaurants.push(restaurant);
         }
-        restaurantSuccess();
+
+        setTimeout(function(){
+            $("#display-food-type").text("Searching...");
+            setTimeout(function(){
+                restaurantSuccess();
+                $('#display-food-type').text(gaFoodTypes[gFoodTypeIndex]);
+            },1000)
+        },1000)
+
     }
     else{
-        restaurantError();
+        setTimeout(function(){
+            $("#display-food-type").text("Searching...");
+            setTimeout(function(){
+                restaurantError();
+            },1000)
+        },1000)
     }
     /*
      if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -762,14 +786,17 @@ function test(address,destination) {
  *  Document ready.
  */
 $(document).ready(function () {
+    // Enable the following line to disable console.log() for release.
+    // console.log = function() {};
+
     console.log('Document ready');
     // Attach click handler for the main spin button.
     $('#color-wheel').click(onSpin);
 
     // Attach click handlers for the bottom menu buttons.
     $('.help-button').click(onHelpButton);
-    $('.location-button').click(onLocationButton);
-    $('.settings-button').click(onSettingsButton);
+    $('#location-icon').click(onLocationButton);
+    $('#settings-icon').click(onSettingsButton);
 
     // Attach click handlers for the help modal.
     $('#help-ok-button').click(onHelpOkButton);

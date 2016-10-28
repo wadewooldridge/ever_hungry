@@ -14,15 +14,16 @@
 }
 /** Header Wrapper **/
 .header-wrapper {
-    height: 10%;
+    height: 6%;
     width: 100%;
     position: relative;
     background-color: #D32F2F;
     max-height: 220px;
+    font-family: 'Oswald', sans-serif;
 }
 /** Wheel Wrapper **/
 .wheel-content-wrapper {
-    height:80%;
+    height:85%;
     width: 100%;
     position: relative;
     background-color: #FFFFFF;
@@ -75,13 +76,16 @@
 /** Title and Logo **/
 
 .dice-logo {
-    height: 50%;
+    height: 30%;
     display: inline-block;
+    position: relative;
+    top: 29%;
 }
-.main-title{
+.main-title {
     display: inline-block;
     color: white;
-    min-width: 203px;
+    position: absolute;
+    bottom: 12%;
 }
 .header-logo {
     height: 50%;
@@ -91,7 +95,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
-    min-width: 263px;
+    min-width: 206px;
 }
 /** Title **/
 .header-title {
@@ -116,7 +120,7 @@
     height: 100%;
     width: 100%;
     font-size: 0;
-    background-image: url('assets/background1.jpg');
+    background-image: url('assets/background3.jpg');
 }
 div.wheel-left {
     display: inline-block;
@@ -182,8 +186,6 @@ div.wheel-right {
     padding-right: 5%;
     padding-left: 5%;
     font-family: 'Quicksand', sans-serif;
-    background-image: url('assets/background1.jpg');
-    opacity: 0.3;
 }
 
 
@@ -202,19 +204,39 @@ div.wheel-right {
     position: relative;
 }
 
-#spin-button {
-    width: 80%;
-    height: 10%;
-    position: absolute;
-    margin: 5% 10%;
-    border-radius: 100% 100%;
+/** Settings modal and its divs. **/
+#settings-modal-wrapper hr {
+    width: 90%;
 }
-/*//for wheel*/
 
+#settings-model-wrapper button {
+    align-self: center;
+}
+
+#settings-left {
+    float: left;
+}
+
+#settings-right {
+    float: right;
+}
+
+.settings-column {
+    width: 40%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.settings-column p {
+    text-transform: capitalize;
+}
+
+/* for wheel */
 #color-wheel{
     display: inline-block;
-    width: 80%;
-    margin-left: 10%;
+    border-radius: 100%;            /* Make this a circular element. */
+    width: 70%;
+    margin-left: 15%;
     height: auto;
     position: absolute;
     -webkit-transition: -webkit-transform 2s ease-out;
@@ -237,17 +259,28 @@ div.wheel-right {
     /*text-align: center;*/
 /*}*/
 /** Location Button **/
-#location-zip-button{
+#location-zip-button {
     background: #EF9A9A;
-    height: 15%;
-    width: 25%;
+    height: 9%;
+    width: 39%;
     border: white;
     box-shadow: 12px 10px 5px #EF5350;
     border-radius: 5px;
-    style="cursor:pointer"
-
+    position: relative;
+    top: 15%;
+    right: 41%;
+    display: inline-block;
 }
-.userZip, #location-current-button{
+
+#location-container{
+    position: absolute;
+    height: 86%;
+    width: 93%;
+    top:23%;
+    left:32%;
+}
+.userZip,
+#location-current-button{
     width: 40%;
     height: 15%;
     border-radius: 6px;
@@ -265,6 +298,21 @@ hr{
 
 #location-modal-wrapper{
     font-family: 'Quicksand', sans-serif;
+}
+
+#location-ok-button,
+#help-ok-button {
+    position: absolute;
+    right: 5%;
+    bottom:5%;
+    width: 8%;
+    height: 10%;
+    border-radius: 7px;
+    border: white;
+    background: #FF5252;
+    color:white;
+    font-family: 'Oswald', sans-serif;
+    font-size:159%;
 }
 /** Settings Button **/
 
@@ -285,13 +333,13 @@ hr{
     background-color: lightslategrey;
 }
 .bottom-icons {
-    width: 12%;
+    width: 30%;
     height: auto;
     position: relative;
     display: block;
     margin: 0 auto;
     vertical-align:center;
-    top:9px;
+    top:37px;
 }
 /** Exit Button **/
 .exit-button-wrapper {
