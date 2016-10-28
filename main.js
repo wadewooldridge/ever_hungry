@@ -787,7 +787,7 @@ function test(address,destination) {
  */
 $(document).ready(function () {
     // Enable the following line to disable console.log() for release.
-    // console.log = function() {};
+    console.log = function() {};
 
     console.log('Document ready');
     // Attach click handler for the main spin button.
