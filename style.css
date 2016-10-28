@@ -425,4 +425,7 @@ hr {
         height: 80%;
     }
 
+    #help-modal-wrapper p {
+        font-size: 75%;
+    }
 }
