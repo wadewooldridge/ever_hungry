@@ -202,8 +202,34 @@ div.wheel-right {
     position: relative;
 }
 
-/*//for wheel*/
+/** Settings modal and its divs. **/
+#settings-modal-wrapper hr {
+    width: 90%;
+}
 
+#settings-model-wrapper button {
+    align-self: center;
+}
+
+#settings-left {
+    float: left;
+}
+
+#settings-right {
+    float: right;
+}
+
+.settings-column {
+    width: 40%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.settings-column p {
+    text-transform: capitalize;
+}
+
+/* for wheel */
 #color-wheel{
     display: inline-block;
     border-radius: 100%;            /* Make this a circular element. */
