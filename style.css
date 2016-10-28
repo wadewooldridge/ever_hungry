@@ -333,13 +333,13 @@ hr{
     background-color: lightslategrey;
 }
 .bottom-icons {
-    width: 12%;
+    width: 30%;
     height: auto;
     position: relative;
     display: block;
     margin: 0 auto;
     vertical-align:center;
-    top:9px;
+    top:37px;
 }
 /** Exit Button **/
 .exit-button-wrapper {
