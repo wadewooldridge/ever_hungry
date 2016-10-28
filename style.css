@@ -336,7 +336,7 @@ hr{
     background-color: lightslategrey;
 }
 .bottom-icons {
-    width: 30%;
+    width: 10%;
     height: auto;
     position: relative;
     display: block;
@@ -425,4 +425,5 @@ hr{
     .wheel-content-wrapper {
         height: 80%;
     }
+
 }
