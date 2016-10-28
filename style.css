@@ -48,8 +48,7 @@
     height: 90%;
     left: 5%;
     top: 5%;
-    padding-top: 5%;
-    padding-left: 5%;
+    padding: 5%;
     border: 1px solid black;
     background-color: lightgray;
 }
@@ -200,7 +199,7 @@ div.wheel-right {
     width: 90%;
     text-align: center;
     text-transform: capitalize;
-    margin: 15% 5% 0;
+    margin: 0 5%;
     position: relative;
 }
 
@@ -236,8 +235,7 @@ div.wheel-right {
     display: inline-block;
     border-radius: 100%;            /* Make this a circular element. */
     width: 70%;
-    margin-left: 15%;
-    height: auto;
+    margin: 0 15%;
     position: absolute;
     -webkit-transition: -webkit-transform 2s ease-out;
 }
@@ -316,7 +314,6 @@ hr{
     font-size:159%;
 }
 
-#help
 /** Settings Button **/
 
 #settings-modal-wrapper{
