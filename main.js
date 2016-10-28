@@ -8,8 +8,9 @@
 /**
  *  @type {string[]}    Valid food types (categories).
  */
-var gaValidFoodTypes = ['barbecue', 'burgers', 'italian', 'mediterranean', 'mexican', 'pizza', 'sandwiches',
-                        'seafood', 'sushi', 'thai'];
+var gaValidFoodTypes = ['american', 'barbecue', 'buffet', 'burgers', 'chinese', 'fast casual', 'fast food',
+                        'indian', 'italian', 'mediterranean', 'mexican', 'pizza', 'pub', 'sandwiches',
+                        'seafood', 'sushi', 'tapas', 'teppanyaki', 'thai', 'vegetarian'];
 
 /**
  *  Global data for spinner.
@@ -54,16 +55,16 @@ var gaPictures = [];
  */
 function photosRequest(latitude, longitude, foodType) {
     console.log('photosRequest');
+
     // Set default parameters if not passed.
     if (latitude === undefined || latitude === 0) {
         latitude = gLocation.lat;
     }
-    if (longitude === undefined || latitude === 0) {
-        latitude = gLocation.lng;
+    if (longitude === undefined || longitude === 0) {
+        longitude = gLocation.lng;
     }
-    if (foodType === undefined || foodType === '') {
-        foodType = gaFoodTypes[gFoodTypeIndex];
-    }
+
+    foodType = gaFoodTypes[gFoodTypeIndex];
 
     // Build the AJAX call to start the photo search.
     $.ajax({
@@ -71,9 +72,9 @@ function photosRequest(latitude, longitude, foodType) {
             method: 'flickr.photos.search',
             api_key: 'ae2be88898748811d752637d4c7235c5',
             format: 'json',
-            text: foodType + '+restaurant',
-            lat: latitude,
-            lon: longitude,
+            text: foodType + '+food',
+            // lat: latitude,
+            // lon: longitude,
             has_geo: 1,
             media: 'photos',
             radius: 1,
@@ -99,9 +100,13 @@ function photosError() {
  *  photosSuccess - Handle success callback for getting photos information.
  */
 function photosSuccess(pictures_data) {
-    console.log('photosSuccess');
+    console.log('photosSuccess', pictures_data);
     gaPictures = pictures_data.photos.photo;
-    photosDisplay();
+    $("#photos-modal-span").text("Searching...")
+    setTimeout(function(){
+        photosDisplay();
+    },1000);
+
 }
 
 /**
@@ -109,7 +114,8 @@ function photosSuccess(pictures_data) {
  */
 function photosDisplay() {
     console.log('photosDisplay: count: ' + gaPictures.length);
-    containerElem = $('#photos-modal-wrapper');
+    $("#photos-modal-span").text('')
+    var containerElem = $("#photos-modal-wrapper");
 
     // Delete any existing pictures.
     containerElem.find('img').remove();
@@ -151,7 +157,7 @@ function onSpin() {
  */
 function onHelpButton() {
     console.log('onHelpButton');
-    $('#help-modal-wrapper').addClass('display');
+    $('#help-modal-wrapper').toggle('drop', {direction: 'down'}, 1000).addClass('display');
 }
 
 /**
@@ -159,7 +165,7 @@ function onHelpButton() {
  */
 function onHelpOkButton() {
     console.log('onHelpOkButton');
-    $('#help-modal-wrapper').removeClass('display');
+    $('#help-modal-wrapper').toggle('drop', {direction: 'down'}, 1000);
 }
 
 /**
@@ -167,7 +173,7 @@ function onHelpOkButton() {
  */
 function onLocationButton() {
     console.log('onLocationButton');
-    $('#location-modal-wrapper').addClass('display');
+    $('#location-modal-wrapper').toggle('drop', {direction: 'down'}, 1000);
 }
 
 /**
@@ -175,7 +181,7 @@ function onLocationButton() {
  */
 function onLocationOkButton() {
     console.log('onLocationOkButton');
-    $('#location-modal-wrapper').removeClass('display');
+    $('#location-modal-wrapper').toggle('drop', {direction: 'down'}, 1000);
 }
 
 /**
@@ -254,9 +260,10 @@ function locationSuccessZip(data) {
  */
 function buildSettingsModal() {
     console.log('buildSettingsModal');
-    var wrapperElem = $('#settings-modal-wrapper');
+    var wrapperElems = [$('#settings-left'), $('#settings-right')];
 
     for (var i = 0; i < gaValidFoodTypes.length; i++) {
+        var wrapperElem = wrapperElems[(i < (gaValidFoodTypes.length / 2)) ? 0 : 1];
         var pElem = $('<p>');
         pElem.append($('<input>', {type: 'checkbox', checked: 'checked', id: 'checkbox' + i}));
         pElem.append($('<label>').html('&nbsp;' + gaValidFoodTypes[i]));
@@ -264,7 +271,10 @@ function buildSettingsModal() {
     }
 
     // Add the OK button.
-    var buttonElem = $('<button>').text('OK').click(onSettingsOkButton);
+    wrapperElem = $('#settings-modal-wrapper')
+    wrapperElem.append($('<br>'));
+    wrapperElem.append($('<br>'));
+    var buttonElem = $('<button>').text('>').click(onSettingsOkButton).attr('id','settings-ok-button');
     wrapperElem.append(buttonElem);
 }
 
@@ -290,8 +300,8 @@ function loadSettingsFromLocalStorage() {
         retArray = JSON.parse(localStorage.getItem(gLocalStorageKey));
     }
 
-    // If it failed for either reason, assume the settings are all enabled.
-    if (retArray === null) {
+    // If it failed for either reason, or this is the wrong length, assume the settings are all enabled.
+    if (retArray === null || retArray.length != gaValidFoodTypes.length) {
         console.log('loadSettingsFromLocalStorage: defaulting settings');
         gaFoodTypesChecked = [];
 
@@ -335,7 +345,7 @@ function onSettingsButton() {
     // TODO: Load the last settings from localStorage.
 
     // Display the settings modal.
-    wrapperElem.addClass('display');
+    wrapperElem.show('drop', {direction: 'down'}, 1000);
 
     // TODO: Save the settings to localStorage.
 
@@ -346,7 +356,7 @@ function onSettingsButton() {
  */
 function onSettingsOkButton() {
     console.log('onSettingsOkButton');
-    $('#settings-modal-wrapper').removeClass('display');
+    $('#settings-modal-wrapper').toggle('drop', {direction: 'down'}, 1000);
     gaFoodTypes = [];
 
     // Check each checkbox in turn.
@@ -371,7 +381,7 @@ function onPhotosButton() {
     console.log('onPhotosButton');
 
     // TODO: Show the modal div for the images.
-    $('#photos-modal-wrapper').addClass('display');
+    $('#photos-modal-wrapper').toggle('drop', {direction: 'right'}, 750).addClass('display');
 
     // TODO: Kick off photo lookup for the restaurants.
 
@@ -382,7 +392,7 @@ function onPhotosButton() {
  */
 function onPhotosOkButton() {
     console.log('onPhotosOkButton');
-    $('#photos-modal-wrapper').removeClass('display');
+    $('#photos-modal-wrapper').toggle('drop', {direction: 'right'}, 750).removeClass('display');
 }
 
 /**
@@ -405,6 +415,7 @@ function initMap(food) {
         types: ['food'],
         keyword:food
     }, restaurantCallback);
+
 }
 
 /**
@@ -447,7 +458,8 @@ function restaurantDisplay() {
         // Build a div with the basic information from the restaurant.
         var restaurantElem = $('<div>').addClass('restaurant');
         restaurantElem.append($('<p>').addClass('restaurant-name').text(r.name));
-        restaurantElem.append($('<p>').text(r.address));
+        restaurantElem.append($('<p>').addClass('restaurant-address').text(r.address));
+
 
         // Add buttons for the photos and directions.
         restaurantElem.append($('<button>').text('Photos').click(function () {
@@ -455,10 +467,10 @@ function restaurantDisplay() {
             onPhotosButton();
         }));
         restaurantElem.append($('<button>').text('Directions').click(function () {
-            directionsRequest();
-            onDirectionsButton();
-        }));
 
+            onDirectionsButton();
+            direction(gLocation["lat"],gLocation["lng"],$(this).parent().find(".restaurant-address").text());
+        }));
         // Append the formatted restaurant div to its container.
         containerElem.append(restaurantElem);
     }
@@ -470,8 +482,9 @@ function restaurantDisplay() {
  * @param {boolean}     status  // TODO: Check this status?
  */
 function restaurantCallback(results, status) {
-    console.log('restaurantCallback: ' + results);
+    console.log('restaurantCallback: ', results);
     gaRestaurants=[];
+
     console.log(gaRestaurants.length);
     if(results.length!==0) {
         for (var i = 0; i < 5; i++) {
@@ -480,10 +493,23 @@ function restaurantCallback(results, status) {
             restaurant.address = results[i].vicinity;
             gaRestaurants.push(restaurant);
         }
-        restaurantSuccess();
+
+        setTimeout(function(){
+            $("#display-food-type").text("Searching...");
+            setTimeout(function(){
+                restaurantSuccess();
+                $('#display-food-type').text(gaFoodTypes[gFoodTypeIndex]);
+            },1000)
+        },1000)
+
     }
     else{
-        restaurantError();
+        setTimeout(function(){
+            $("#display-food-type").text("Searching...");
+            setTimeout(function(){
+                restaurantError();
+            },1000)
+        },1000)
     }
     /*
      if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -570,19 +596,207 @@ function spinWheel(){
 
     imgElem.attr('style', css);
 }
+/*direction*/
+var address = {};
+
+/*
+ * Get the json file from Google Geo
+ */
+function Convert_LatLng_To_Address(lat, lng,destination) {
+    var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=false";
+    jQuery.getJSON(url, function (json) {
+        Create_Address(json);
+        test(address,destination);
+    });
+}
+
+/*
+ * Create an address out of the json
+ */
+function Create_Address(json) {
+    if (!check_status(json)) // If the json file's status is not ok, then return
+        return 0;
+    address['country'] = google_getCountry(json);
+    address['province'] = google_getProvince(json);
+    address['city'] = google_getCity(json);
+    address['street'] = google_getStreet(json);
+    address['postal_code'] = google_getPostalCode(json);
+    address['country_code'] = google_getCountryCode(json);
+    address['formatted_address'] = google_getAddress(json);
+
+}
+
+/*
+ * Check if the json data from Google Geo is valid
+ */
+function check_status(json) {
+    if (json["status"] == "OK") return true;
+    return false;
+}
+
+/*
+ * Given Google Geocode json, return the value in the specified element of the array
+ */
+
+function google_getCountry(json) {
+    return Find_Long_Name_Given_Type("country", json["results"][0]["address_components"], false);
+}
+function google_getProvince(json) {
+    return Find_Long_Name_Given_Type("administrative_area_level_1", json["results"][0]["address_components"], true);
+}
+function google_getCity(json) {
+    return Find_Long_Name_Given_Type("locality", json["results"][0]["address_components"], false);
+}
+function google_getStreet(json) {
+    return Find_Long_Name_Given_Type("street_number", json["results"][0]["address_components"], false) + ' ' + Find_Long_Name_Given_Type("route", json["results"][0]["address_components"], false);
+}
+function google_getPostalCode(json) {
+    return Find_Long_Name_Given_Type("postal_code", json["results"][0]["address_components"], false);
+}
+function google_getCountryCode(json) {
+    return Find_Long_Name_Given_Type("country", json["results"][0]["address_components"], true);
+}
+function google_getAddress(json) {
+    return json["results"][0]["formatted_address"];
+}
+
+/*
+ * Searching in Google Geo json, return the long name given the type.
+ * (if short_name is true, return short name)
+ */
+
+function Find_Long_Name_Given_Type(t, a, short_name) {
+    var key;
+    for (key in a ) {
+        if ((a[key]["types"]).indexOf(t) != -1) {
+            if (short_name)
+                return a[key]["short_name"];
+            return a[key]["long_name"];
+        }
+    }
+}
+
+function direction(lat,lng,destination) {
+    Convert_LatLng_To_Address(lat,lng,destination);
+}
+function test(address,destination) {
+    console.log("-----------------------------")
+    console.log("Where I am:",address.formatted_address);
+    console.log("Place to go:",destination);
+    var origin_place_id = null;
+    var destination_place_id = null;
+    var travel_mode = 'WALKING';
+    var map = new google.maps.Map(document.getElementById('directions-modal-wrapper'), {
+        mapTypeControl: false,
+        center: gLocation,
+        zoom: 10
+    });
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    directionsDisplay.setMap(map);
+    $('#origin-input').val(address.formatted_address);
+    var origin_input = document.getElementById('origin-input');
+    $("#destination-input").val(destination);
+    var destination_input = document.getElementById('destination-input');
+    var modes = document.getElementById('mode-selector');
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(origin_input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(destination_input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(modes);
+
+
+    var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
+    origin_autocomplete.bindTo('bounds', map);
+    var destination_autocomplete =
+        new google.maps.places.Autocomplete(destination_input);
+    destination_autocomplete.bindTo('bounds', map);
+    // Sets a listener on a radio button to change the filter type on Places
+    // Autocomplete.
+    /*
+    function setupClickListener(id, mode) {
+        var radioButton = document.getElementById(id);
+        radioButton.addEventListener('click', function () {
+            travel_mode = mode;
+        });
+    }
+
+    setupClickListener('changemode-walking', 'WALKING');
+    setupClickListener('changemode-transit', 'TRANSIT');
+    setupClickListener('changemode-driving', 'DRIVING');
+    */
+    function expandViewportToFitPlace(map, place) {
+        if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+        } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);
+        }
+    }
+
+    origin_autocomplete.addListener('place_changed', function () {
+
+        var place = origin_autocomplete.getPlace();
+        if (!place.geometry) {
+            window.alert("Autocomplete's returned place contains no geometry");
+            return;
+        }
+        expandViewportToFitPlace(map, place);
+        // If the place has a geometry, store its place ID and route if we have
+        // the other place ID
+        origin_place_id = place.place_id;
+        route(origin_place_id, destination_place_id, travel_mode,
+            directionsService, directionsDisplay);
+    });
+    destination_autocomplete.addListener('place_changed', function () {
+        var place = destination_autocomplete.getPlace();
+        if (!place.geometry) {
+            window.alert("Autocomplete's returned place contains no geometry");
+            return;
+        }
+        expandViewportToFitPlace(map, place);
+        // If the place has a geometry, store its place ID and route if we have
+        // the other place ID
+        destination_place_id = place.place_id;
+        route(origin_place_id, destination_place_id, travel_mode,
+            directionsService, directionsDisplay);
+    });
+
+    function route(origin_place_id, destination_place_id, travel_mode,
+                   directionsService, directionsDisplay) {
+        if (!origin_place_id || !destination_place_id) {
+            return;
+        }
+        directionsService.route({
+            origin: {'placeId': origin_place_id},
+            destination: {'placeId': destination_place_id},
+            travelMode: travel_mode
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+}
+
+
+
 
 /**
  *  Document ready.
  */
 $(document).ready(function () {
+    // Enable the following line to disable console.log() for release.
+    console.log = function() {};
+
     console.log('Document ready');
     // Attach click handler for the main spin button.
     $('#color-wheel').click(onSpin);
 
     // Attach click handlers for the bottom menu buttons.
     $('.help-button').click(onHelpButton);
-    $('.location-button').click(onLocationButton);
-    $('.settings-button').click(onSettingsButton);
+    $('#location-icon').click(onLocationButton);
+    $('#settings-icon').click(onSettingsButton);
 
     // Attach click handlers for the help modal.
     $('#help-ok-button').click(onHelpOkButton);
