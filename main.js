@@ -113,6 +113,7 @@ function photosSuccess(pictures_data) {
  *  photosDisplay - Take the pictures from gaPictures and add them to the photos modal.
  */
 function photosDisplay() {
+    $("#photos-modal-wrapper").text("");
     console.log('photosDisplay: count: ' + gaPictures.length);
     containerElem = $('#photos-modal-wrapper');
 
