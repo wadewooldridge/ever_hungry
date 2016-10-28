@@ -156,7 +156,7 @@ function onSpin() {
  */
 function onHelpButton() {
     console.log('onHelpButton');
-    $('#help-modal-wrapper').addClass('display');
+    $('#help-modal-wrapper').toggle('drop', {direction: 'down'}, 1000).addClass('display');
 }
 
 /**
@@ -164,7 +164,7 @@ function onHelpButton() {
  */
 function onHelpOkButton() {
     console.log('onHelpOkButton');
-    $('#help-modal-wrapper').removeClass('display');
+    $('#help-modal-wrapper').toggle('drop', {direction: 'down'}, 1000);
 }
 
 /**
@@ -172,7 +172,7 @@ function onHelpOkButton() {
  */
 function onLocationButton() {
     console.log('onLocationButton');
-    $('#location-modal-wrapper').addClass('display');
+    $('#location-modal-wrapper').toggle('drop', {direction: 'down'}, 1000);
 }
 
 /**
@@ -180,7 +180,7 @@ function onLocationButton() {
  */
 function onLocationOkButton() {
     console.log('onLocationOkButton');
-    $('#location-modal-wrapper').removeClass('display');
+    $('#location-modal-wrapper').toggle('drop', {direction: 'down'}, 1000);
 }
 
 /**
@@ -345,7 +345,7 @@ function onSettingsButton() {
     // TODO: Load the last settings from localStorage.
 
     // Display the settings modal.
-    wrapperElem.addClass('display');
+    wrapperElem.show('drop', {direction: 'down'}, 1000);
 
     // TODO: Save the settings to localStorage.
 
@@ -356,7 +356,7 @@ function onSettingsButton() {
  */
 function onSettingsOkButton() {
     console.log('onSettingsOkButton');
-    $('#settings-modal-wrapper').removeClass('display');
+    $('#settings-modal-wrapper').toggle('drop', {direction: 'down'}, 1000);
     gaFoodTypes = [];
 
     // Check each checkbox in turn.
@@ -381,7 +381,7 @@ function onPhotosButton() {
     console.log('onPhotosButton');
 
     // TODO: Show the modal div for the images.
-    $('#photos-modal-wrapper').addClass('display');
+    $('#photos-modal-wrapper').toggle('drop', {direction: 'right'}, 750).addClass('display');
 
     // TODO: Kick off photo lookup for the restaurants.
 
@@ -392,7 +392,7 @@ function onPhotosButton() {
  */
 function onPhotosOkButton() {
     console.log('onPhotosOkButton');
-    $('#photos-modal-wrapper').removeClass('display');
+    $('#photos-modal-wrapper').toggle('drop', {direction: 'right'}, 750).removeClass('display');
 }
 
 /**
