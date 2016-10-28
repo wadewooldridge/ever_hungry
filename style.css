@@ -177,7 +177,12 @@ div.wheel-right {
 /** Help modal styling. **/
 #help-modal-wrapper {
     padding-right: 5%;
+    padding-left: 5%;
+    font-family: 'Quicksand', sans-serif;
+    background-image: url('assets/background1.jpg');
+    opacity: 0.3;
 }
+
 
 .product-name {
     font-weight: bold;
@@ -229,12 +234,40 @@ div.wheel-right {
     /*text-align: center;*/
 /*}*/
 /** Location Button **/
-/*.location-button-wrapper, .settings-button-wrapper,{*/
-    /*background-color: #EF5350;*/
-    /*width:33.3%;*/
+#location-zip-button{
+    background: #EF9A9A;
+    height: 15%;
+    width: 25%;
+    border: white;
+    box-shadow: 12px 10px 5px #EF5350;
+    border-radius: 5px;
+    style="cursor:pointer"
 
 }
+.userZip, #location-current-button{
+    width: 40%;
+    height: 15%;
+    border-radius: 6px;
+    border: white;
+    background:white;
+    color:grey;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+}
+
+hr{
+    width:18%;
+    display:inline-block;
+}
+
+#location-modal-wrapper{
+    font-family: 'Quicksand', sans-serif;
+}
 /** Settings Button **/
+
+#settings-modal-wrapper{
+    font-family: 'Quicksand', sans-serif;
+}
 
 /** Camera Button **/
 .camera-button-wrapper {

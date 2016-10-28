@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Candal|Fredoka+One|Oswald|Roboto+Condensed:700|Roboto:300|Rubik+One" rel="stylesheet">    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Oswald|Quicksand|Roboto+Condensed:700|Roboto:300|Rubik+One" rel="stylesheet">
     <title>Ever Hungry?</title>
     <link rel="stylesheet" type="text/css" href="normalize.css">
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -52,49 +52,46 @@
                     about that restaurant, or the Directions button to get directions on how to get there.</p>
                 <h3>Bon Appetit!</h3>
                 <hr>
-                <button id="help-ok-button">OK</button>
+                <button id="help-ok-button" style="cursor:pointer"> > </button>
             </div>
             <div id="location-modal-wrapper" class="modal-wrapper">
+                <input type="submit" value="use my current location" id="location-current-button" style="cursor:pointer">
+                <br>
+                <hr> or <hr>
+                <br>
                 <input type="text" placeholder="address or zip code" class="userZip">
-                <input type="submit" value="submit" id="buttonLocationZip"><br>
-                <input type="submit" value="use current location" id="buttonLocationCurrent">
-                <input type="submit" value="Use current location" id="location-current-button">
+                <input type="submit" value="submit" id="location-zip-button" style="cursor:pointer">
                 <br>
-                <br>
-                <input type="submit" value="Use this Zip code" id="location-zip-button">
-                <input type="text" placeholder="enter zip code" class="userZip">
-                <br>
-                <hr>
-                <button id="location-ok-button">OK</button>
+                <button id="location-ok-button" style="cursor:pointer"> > </button>
             </div>
             <div id="settings-modal-wrapper" class="modal-wrapper">
                 <h4>What goes on the wheel?</h4>
             </div>
             <div id="photos-modal-wrapper" class="modal-wrapper">
                 <hr>
-                <button id="photos-ok-button">OK</button>
+                <button id="photos-ok-button" style="cursor:pointer"> > </button>
             </div>
             <div id="directions-modal-wrapper" class="modal-wrapper">
                 Here is the directions modal.
                 <hr>
-                <button id="directions-ok-button">OK</button>
+                <button id="directions-ok-button" style="cursor:pointer"> > </button>
             </div>
         </div>
         <footer class="footer-wrapper">
 
             <div class="help-button-wrapper">
                 <div class="help-button">
-                    <img src="assets/question_mark.png" class="bottom-icons">
+                    <img src="assets/question_mark.png" class="bottom-icons" style="cursor:pointer">
                 </div>
             </div>
             <div class="location-button-wrapper">
                 <div class="location-button">
-                    <img src="assets/white_location_pin.png" class="bottom-icons location-button">
+                    <img src="assets/white_location_pin.png" class="bottom-icons location-button" style="cursor:pointer">
                 </div>
             </div>
             <div class="settings-button-wrapper">
                 <div class="settings-button">
-                    <img src="assets/white_setting_pin.png" class="bottom-icons settings-button">
+                    <img src="assets/white_setting_pin.png" class="bottom-icons settings-button" style="cursor:pointer">
                 </div>
             </div>
         </footer>
