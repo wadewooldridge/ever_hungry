@@ -29,7 +29,7 @@
 }
 /** Footer Wrapper **/
 .footer-wrapper {
-    height: 10%;
+    height:10%;
     width: 100%;
     background-color: #EF5350;
     margin: auto;
@@ -61,7 +61,7 @@
 .settings-button-wrapper,
 .photo-button-wrapper
 {
-    width: 20%;
+    width: 33.3%;
     height: 100%;
     display: inline-block;
     margin: auto;
@@ -82,7 +82,6 @@
     display: inline-block;
     color: white;
     min-width: 203px;
-    vertical-align: top;
 }
 .header-logo {
     height: 50%;
@@ -217,20 +216,26 @@ div.wheel-right {
 /* Footer content broken into sub-sections */
 
 /** Help Button **/
-.help-button-wrapper {
-    background-color: #EF5350;
-    font-family: "Times New Roman";
-    font-size:150px;
-    color:white;
-}
+/*.help-button-wrapper {*/
+    /*font-family: "Times New Roman";*/
+    /*font-size:63px;*/
+    /*color:white;*/
+    /*height:0%;*/
+    /*width:33.3%;*/
+    /*display:inline-block;*/
+/*}*/
+/*.help-button{*/
+    /*position: relative;*/
+    /*text-align: center;*/
+/*}*/
 /** Location Button **/
-.location-button-wrapper {
-    background-color: #EF5350;
+/*.location-button-wrapper, .settings-button-wrapper,{*/
+    /*background-color: #EF5350;*/
+    /*width:33.3%;*/
+
 }
 /** Settings Button **/
-.settings-button-wrapper {
-    background-color: #EF5350;
-}
+
 /** Camera Button **/
 .camera-button-wrapper {
     background-color: lightslategrey;
@@ -244,8 +249,13 @@ div.wheel-right {
     background-color: lightslategrey;
 }
 .bottom-icons {
-    width: 58%;
+    width: 12%;
     height: auto;
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    vertical-align:center;
+    top:9px;
 }
 /** Exit Button **/
 .exit-button-wrapper {
