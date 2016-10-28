@@ -134,10 +134,10 @@ function createPhotoUrl(){
  */
 function onSpin() {
     console.log('onSpin');
-
+    restaurantClearDisplay();
+    // TODO: Add some animation for the spinner.
     // Make the wheel spin.
     spinWheel();
-
     // Select a random food type from the gaFoodTypes[] array.
     gFoodTypeIndex = Math.floor(Math.random()* gaFoodTypes.length);
     $('#display-food-type').text(gaFoodTypes[gFoodTypeIndex]);
