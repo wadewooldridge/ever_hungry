@@ -607,8 +607,8 @@ $(document).ready(function () {
 
     // Attach click handlers for the bottom menu buttons.
     $('.help-button').click(onHelpButton);
-    $('.location-button').click(onLocationButton);
-    $('.settings-button').click(onSettingsButton);
+    $('#location-icon').click(onLocationButton);
+    $('#settings-icon').click(onSettingsButton);
 
     // Attach click handlers for the help modal.
     $('#help-ok-button').click(onHelpOkButton);
