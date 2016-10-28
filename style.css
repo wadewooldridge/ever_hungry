@@ -3,7 +3,7 @@
 
 /** Everything Wrapper **/
 /**{*/
-    /*font-family: 'Oswald', sans-serif;*/
+/*font-family: 'Oswald', sans-serif;*/
 /*}*/
 
 .everything-wrapper {
@@ -12,6 +12,7 @@
     position: relative;
     background-color: #EF5350;
 }
+
 /** Header Wrapper **/
 .header-wrapper {
     height: 6%;
@@ -21,16 +22,18 @@
     max-height: 220px;
     font-family: 'Oswald', sans-serif;
 }
+
 /** Wheel Wrapper **/
 .wheel-content-wrapper {
-    height:85%;
+    height: 85%;
     width: 100%;
     position: relative;
     background-color: #FFFFFF;
 }
+
 /** Footer Wrapper **/
 .footer-wrapper {
-    height:10%;
+    height: 10%;
     width: 100%;
     background-color: #EF5350;
     margin: auto;
@@ -38,6 +41,7 @@
     position: relative;
     font-size: 0;
 }
+
 /** Modal Wrapper (hidden) **/
 .modal-wrapper {
     box-sizing: border-box;
@@ -52,16 +56,17 @@
     border: 1px solid black;
     background-color: lightgray;
 }
+
 /** Wheel Wrapper (displayed) **/
 .modal-wrapper.display {
     display: inherit;
 }
+
 /** Footer Button Wrappers **/
 .help-button-wrapper,
 .location-button-wrapper,
 .settings-button-wrapper,
-.photo-button-wrapper
-{
+.photo-button-wrapper {
     width: 33.3%;
     display: inline-block;
     margin: auto;
@@ -80,12 +85,14 @@
     position: relative;
     top: 29%;
 }
+
 .main-title {
     display: inline-block;
     color: white;
     position: absolute;
     bottom: 12%;
 }
+
 .header-logo {
     height: 50%;
     min-height: 111px;
@@ -96,6 +103,7 @@
     box-sizing: border-box;
     min-width: 206px;
 }
+
 /** Title **/
 .header-title {
     display: inline-block;
@@ -104,7 +112,7 @@
     color: white;
     position: absolute;
     left: 45%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     top: 87%;
     height: 44%;
     width: auto
@@ -121,6 +129,7 @@
     font-size: 0;
     background-image: url('assets/background3.jpg');
 }
+
 div.wheel-left {
     display: inline-block;
     width: 50%;
@@ -128,7 +137,7 @@ div.wheel-left {
     height: 100%;
     font-size: initial;
     box-sizing: border-box;
-    background-color: rgba(255,255,255, 0.8);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 div.wheel-right {
@@ -138,7 +147,7 @@ div.wheel-right {
     position: relative;
     font-size: initial;
     vertical-align: top;
-    background-color: rgba(255,255,255, 0.8);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .restaurant {
@@ -151,30 +160,6 @@ div.wheel-right {
     margin: auto;
     text-align: center;
 }
-/*.wheel-right .restaurant:first-child, .wheel-right .restaurant:last-child {*/
-    /*background-color: #FAC158;*/
-/*}*/
-/*.wheel-right .restaurant:first-child {*/
-    /*border-radius: 100% 100% 10% 10%;*/
-/*}*/
-/*.wheel-right .restaurant:nth-child(2) {*/
-    /*border-radius: 3% 3% 10% 10%;*/
-    /*background-color: #84d644;*/
-/*}*/
-/*.wheel-right .restaurant:nth-child(3){*/
-    /*border-radius: 3% 3% 10% 10%;*/
-    /*background-color: #fb3434;*/
-/*}*/
-/*.wheel-right .restaurant:nth-child(2) {*/
-    /*border-radius: 3% 3% 10% 10%;*/
-    /*background-color: #a77932;*/
-/*}*/
-/*.wheel-right .restaurant:last-child {*/
-    /*border-radius: 3% 3% 10% 10%;*/
-/*}*/
-/*.restaurant p {*/
-    /*!*margin: 0;*!*/
-/*}*/
 
 .restaurant-name {
     font-weight: bold;
@@ -187,15 +172,15 @@ div.wheel-right {
     font-family: 'Quicksand', sans-serif;
 }
 
-
 .product-name {
     font-weight: bold;
     font-style: italic;
 }
+
 /** Test Display for button generated food type **/
 #display-food-type {
     border: 1px solid black;
-    height:15%;
+    height: 15%;
     width: 90%;
     text-align: center;
     text-transform: capitalize;
@@ -237,9 +222,9 @@ div.wheel-right {
 }
 
 /* for wheel */
-#color-wheel{
+#color-wheel {
     display: inline-block;
-    border-radius: 100%;            /* Make this a circular element. */
+    border-radius: 100%; /* Make this a circular element. */
     width: 70%;
     margin: 0 15%;
     position: absolute;
@@ -249,22 +234,9 @@ div.wheel-right {
 /*********** Footer content *************/
 /* Footer content broken into sub-sections */
 
-/** Help Button **/
-/*.help-button-wrapper {*/
-    /*font-family: "Times New Roman";*/
-    /*font-size:63px;*/
-    /*color:white;*/
-    /*height:0%;*/
-    /*width:33.3%;*/
-    /*display:inline-block;*/
-/*}*/
-/*.help-button{*/
-    /*position: relative;*/
-    /*text-align: center;*/
-/*}*/
 /** Location Button **/
 #location-zip-button {
-    background: #EF9A9A;
+    background: #E53935;
     height: 9%;
     width: 39%;
     border: white;
@@ -276,53 +248,62 @@ div.wheel-right {
     display: inline-block;
 }
 
-#location-container{
+#location-container {
     position: absolute;
     height: 86%;
     width: 93%;
-    top:23%;
-    left:32%;
+    top: 23%;
+    left: 32%;
 }
+
 .userZip,
-#location-current-button{
+#location-current-button {
     width: 40%;
     height: 15%;
     border-radius: 6px;
     border: white;
-    background:white;
-    color:grey;
+    background: white;
+    color: grey;
     text-align: center;
     font-family: 'Quicksand', sans-serif;
 }
 
-hr{
-    width:18%;
-    display:inline-block;
+hr {
+    width: 18%;
+    display: inline-block;
 }
 
-#location-modal-wrapper{
+#location-modal-wrapper {
     font-family: 'Quicksand', sans-serif;
 }
 
 #location-ok-button,
 #help-ok-button,
-#settings-ok-button {
+#settings-ok-button,
+#photos-ok-button {
     position: absolute;
     right: 5%;
-    bottom:5%;
+    bottom: 5%;
     width: 8%;
     height: 10%;
     border-radius: 7px;
     border: white;
-    background: #FF5252;
-    color:white;
+    background: #C62828;
+    color: white;
     font-family: 'Oswald', sans-serif;
-    font-size:159%;
+    font-size: 159%;
+    cursor: pointer;
+
+}
+
+#help-modal-wrapper, #location-modal-wrapper, #settings-modal-wrapper {
+    border-radius: 10px;
+    background: #FFCDD2;
+    box-shadow: 16px 16px 5px #808080;
 }
 
 /** Settings Button **/
-
-#settings-modal-wrapper{
+#settings-modal-wrapper {
     font-family: 'Quicksand', sans-serif;
 }
 
@@ -330,28 +311,31 @@ hr{
 .camera-button-wrapper {
     background-color: lightslategrey;
 }
+
 /** photo Button **/
 .photo-button-wrapper {
     background-color: yellow;
 }
+
 /** Direction Button **/
 .direction-button-wrapper {
     background-color: lightslategrey;
 }
+
 .bottom-icons {
     width: 10%;
     height: auto;
     position: relative;
     display: block;
     margin: 0 auto;
-    vertical-align:center;
-    top:30%;
+    vertical-align: center;
+    top: 30%;
 }
+
 /** Exit Button **/
 .exit-button-wrapper {
     background-color: yellow;
 }
-
 
 /* Float Clearfix
 =============================== */
@@ -370,66 +354,73 @@ hr{
     .wheel-content-wrapper,
     .wheel,
     .footer-wrapper,
-    .restaurant
-    {
+    .restaurant {
         display: block;
         width: 100vw;
         margin: auto;
         padding: 0;
     }
+
     .everything-wrapper {
         /*height: 100vh;*/
         margin: 0;
         width: 100vw;
 
     }
+
     #photos-modal-wrapper img {
         width: 25%;
         height: auto;
     }
 
     #div-wheel-left,
-    #div-wheel-right
-    {
+    #div-wheel-right {
         width: 100%;
     }
+
     .wheel {
         height: 100%;
         box-sizing: border-box;
         position: relative;
     }
+
     #div-wheel-right {
         height: 60%;
         box-sizing: border-box;
     }
+
     #div-wheel-left {
         height: 40%;
     }
+
     #display-food-type, #spin-button {
         margin: 0;
     }
+
     #display-food-type {
         height: 20%;
         width: 100%;
     }
+
     #color-wheel {
         height: 80%;
         width: auto;
         margin: 0 27.5%;
     }
-    .header-wrapper, .footer-wrapper {
-        /*height: 10%;*/
-    }
+
     .footer-wrapper {
         max-height: 30px;
     }
+
     .restaurant {
         height: 20%;
         box-sizing: border-box;
     }
+
     .restaurant p, .restaurant button {
         margin: 0;
     }
+
     .wheel-content-wrapper {
         height: 80%;
     }
