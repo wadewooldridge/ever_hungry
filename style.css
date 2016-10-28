@@ -14,21 +14,22 @@
 }
 /** Header Wrapper **/
 .header-wrapper {
-    height: 14%;
+    height: 10%;
     width: 100%;
     position: relative;
-    background-color:#F44336;
+    background-color: #D32F2F;
+    max-height: 220px;
 }
 /** Wheel Wrapper **/
 .wheel-content-wrapper {
-    height:75%;
+    height:80%;
     width: 100%;
     position: relative;
     background-color: #FFFFFF;
 }
 /** Footer Wrapper **/
 .footer-wrapper {
-    height: 15%;
+    height:10%;
     width: 100%;
     background-color: #EF5350;
     margin: auto;
@@ -60,7 +61,7 @@
 .settings-button-wrapper,
 .photo-button-wrapper
 {
-    width: 20%;
+    width: 33.3%;
     height: 100%;
     display: inline-block;
     margin: auto;
@@ -71,27 +72,26 @@
 /*********** Header content *************/
 /* Header content broken into sub-sections */
 
-/** Logo **/
+/** Title and Logo **/
 
-#dice-logo {
-    /*position: absolute;*/
-    /*left:50%;*/
-    /*transform: translate(-50%,-50%);*/
-    /*top: 72%;*/
-    height: 44%;
-    width: auto;
+.dice-logo {
+    height: 50%;
+    display: inline-block;
 }
-#main-title{
-    display:inline-block;
-    font-size:52px;
-    vertical-align: top;
+.main-title{
+    display: inline-block;
+    color: white;
+    min-width: 203px;
 }
 .header-logo {
-    height: 100%;
-    width: 11%;
+    height: 50%;
+    min-height: 111px;
     position: absolute;
-    background-color: #D32F2F;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    min-width: 263px;
 }
 /** Title **/
 .header-title {
@@ -116,27 +116,31 @@
     height: 100%;
     width: 100%;
     font-size: 0;
+    background-image: url('assets/background1.jpg');
 }
 div.wheel-left {
     display: inline-block;
-    width: 40%;
+    width: 50%;
     position: relative;
     height: 100%;
     font-size: initial;
+    box-sizing: border-box;
+    background-color: rgba(255,255,255, 0.8);
 }
 
 div.wheel-right {
     display: inline-block;
-    width: 60%;
+    width: 50%;
     height: 100%;
     position: relative;
     font-size: initial;
     vertical-align: top;
+    background-color: rgba(255,255,255, 0.8);
 }
 
 .restaurant {
     display: block;
-    width: 90%;
+    width: 100%;
     padding: 0.5em;
     border: 1px solid black;
     position: relative;
@@ -176,7 +180,12 @@ div.wheel-right {
 /** Help modal styling. **/
 #help-modal-wrapper {
     padding-right: 5%;
+    padding-left: 5%;
+    font-family: 'Quicksand', sans-serif;
+    background-image: url('assets/background1.jpg');
+    opacity: 0.3;
 }
+
 
 .product-name {
     font-weight: bold;
@@ -189,39 +198,80 @@ div.wheel-right {
     width: 90%;
     text-align: center;
     text-transform: capitalize;
-    margin: 10% 5% 5%;
+    margin: 15% 5% 0;
     position: relative;
 }
 
 #spin-button {
-    width: 60%;
+    width: 80%;
     height: 10%;
     position: absolute;
-    margin: 0 21%;
+    margin: 5% 10%;
     border-radius: 100% 100%;
 }
 /*//for wheel*/
 
-#colorWheel{
-    display:block;
-    webkit-transition: -webkit-transform 5s ease-out;
+#color-wheel{
+    display: inline-block;
+    width: 80%;
+    margin-left: 10%;
+    height: auto;
+    position: absolute;
+    -webkit-transition: -webkit-transform 2s ease-out;
 }
 
 /*********** Footer content *************/
 /* Footer content broken into sub-sections */
 
 /** Help Button **/
-.help-button-wrapper {
-    background-color: #EF5350;
-}
+/*.help-button-wrapper {*/
+    /*font-family: "Times New Roman";*/
+    /*font-size:63px;*/
+    /*color:white;*/
+    /*height:0%;*/
+    /*width:33.3%;*/
+    /*display:inline-block;*/
+/*}*/
+/*.help-button{*/
+    /*position: relative;*/
+    /*text-align: center;*/
+/*}*/
 /** Location Button **/
-.location-button-wrapper {
-    background-color: #EF5350;
+#location-zip-button{
+    background: #EF9A9A;
+    height: 15%;
+    width: 25%;
+    border: white;
+    box-shadow: 12px 10px 5px #EF5350;
+    border-radius: 5px;
+    style="cursor:pointer"
+
+}
+.userZip, #location-current-button{
+    width: 40%;
+    height: 15%;
+    border-radius: 6px;
+    border: white;
+    background:white;
+    color:grey;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+}
+
+hr{
+    width:18%;
+    display:inline-block;
+}
+
+#location-modal-wrapper{
+    font-family: 'Quicksand', sans-serif;
 }
 /** Settings Button **/
-.settings-button-wrapper {
-    background-color: #EF5350;
+
+#settings-modal-wrapper{
+    font-family: 'Quicksand', sans-serif;
 }
+
 /** Camera Button **/
 .camera-button-wrapper {
     background-color: lightslategrey;
@@ -235,8 +285,13 @@ div.wheel-right {
     background-color: lightslategrey;
 }
 .bottom-icons {
-    width: 20px;
-    height: 20px;
+    width: 12%;
+    height: auto;
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    vertical-align:center;
+    top:9px;
 }
 /** Exit Button **/
 .exit-button-wrapper {
@@ -256,7 +311,7 @@ div.wheel-right {
 /* Media Queries
 =============================== */
 
-@media (max-width: 768px) {
+@media screen and (max-width: 500px) {
     .header-wrapper,
     .wheel-content-wrapper,
     .wheel,

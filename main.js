@@ -3,13 +3,19 @@
  *
  *  Basic layout of file follows basic layout of application:
  *                      Spinner
- *  Help  Location  Settings  photo  Directions  Exit
+ *  Help  Location  Settings  Photos  Directions
  */
 /**
  *  @type {string[]}    Valid food types (categories).
  */
 var gaValidFoodTypes = ['barbecue', 'burgers', 'italian', 'mediterranean', 'mexican', 'pizza', 'sandwiches',
                         'seafood', 'sushi', 'thai'];
+
+/**
+ *  Global data for spinner.
+ *  @type {boolean}     Which direction to spin.
+ */
+var gSpinRight = true;
 
 /**
  *  Global data from the location modal.
@@ -128,9 +134,10 @@ function createPhotoUrl(){
  */
 function onSpin() {
     console.log('onSpin');
-
+    restaurantClearDisplay();
     // TODO: Add some animation for the spinner.
-
+    // Make the wheel spin.
+    spinWheel();
     // Select a random food type from the gaFoodTypes[] array.
     gFoodTypeIndex = Math.floor(Math.random()* gaFoodTypes.length);
     $('#display-food-type').text(gaFoodTypes[gFoodTypeIndex]);
@@ -404,7 +411,11 @@ function initMap(food) {
  *  restaurantError - Handle error callback for getting restaurant information.
  */
 function restaurantError() {
-    console.warn('restaurantError');
+    console.log("Error");
+    setTimeout(function(){
+        $("#display-food-type").text("Sorry, no matches. Please try again.");
+    },1000)
+
 }
 
 /**
@@ -467,15 +478,17 @@ function restaurantDisplay() {
 function restaurantCallback(results, status) {
     console.log('restaurantCallback: ', results);
     gaRestaurants=[];
-    for (var i=0;i<5;i++){
-        var restaurant={};
-        console.log('in cb results at ', i, ' are ', results[i]);
-        restaurant.name=results[i].name;
-        restaurant.address=results[i].vicinity;
-        gaRestaurants.push(restaurant);
-    }
-    if(gaRestaurants.length!==0)
+
+    console.log(gaRestaurants.length);
+    if(results.length!==0) {
+        for (var i = 0; i < 5; i++) {
+            var restaurant = {};
+            restaurant.name = results[i].name;
+            restaurant.address = results[i].vicinity;
+            gaRestaurants.push(restaurant);
+        }
         restaurantSuccess();
+    }
     else{
         restaurantError();
     }
@@ -542,34 +555,27 @@ function directionsSuccess() {
 }
 
 /**
-<<<<<<< HEAD
- *  onExitButton
- */
-function onExitButton() {
-    console.log('onExitButton');
-
-    // TODO: Show the modal div for 'Are you sure?'  Exit if so.
-    $('#exit-modal-wrapper').addClass('display');
-
-}
-
-/**
  * Spin wheel
  */
 function spinWheel(){
-    console.log('spinWheel')
-    var img = document.querySelector('#colorWheel');
-    img.addEventListener('click', onClick, false);
-    function onClick() {
-        console.log('wheel clickd');
-        this.removeAttribute('style');
-        var deg = 900 + Math.round(Math.random() * 900);
-        var css = '-webkit-transform: rotate(' + deg + 'deg);';
-        this.setAttribute(
-            'style', css
-        );
+    console.log('spinWheel');
+    imgElem = $('#color-wheel');
+
+    // Clear the existing style setting.
+    imgElem.removeAttr('style');
+
+    // Set a new style setting to make it take place.
+    var degrees = 500 + (Math.floor(Math.random() * 500));
+    if (gSpinRight) {
+        gSpinRight = false;
+    } else {
+        degrees = 0 - degrees;
+        gSpinRight = true;
     }
 
+    var css = '-webkit-transform: rotate(' + degrees + 'deg);';
+
+    imgElem.attr('style', css);
 }
 
 /**
@@ -578,13 +584,12 @@ function spinWheel(){
 $(document).ready(function () {
     console.log('Document ready');
     // Attach click handler for the main spin button.
-    $('#spin-button').click(onSpin);
+    $('#color-wheel').click(onSpin);
+
     // Attach click handlers for the bottom menu buttons.
     $('.help-button').click(onHelpButton);
     $('.location-button').click(onLocationButton);
     $('.settings-button').click(onSettingsButton);
-    $('.photo-button').click(onPhotosButton);
-    $('.directions-button').click(onDirectionsButton);
 
     // Attach click handlers for the help modal.
     $('#help-ok-button').click(onHelpOkButton);
@@ -608,9 +613,6 @@ $(document).ready(function () {
 
     // Load the saved settings from local storage.
     loadSettingsFromLocalStorage();
-
-    //apply spin wheel function
-    $('#colorWheel').click(spinWheel);
 });
 
 
