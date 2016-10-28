@@ -63,7 +63,6 @@
 .photo-button-wrapper
 {
     width: 33.3%;
-    height: 100%;
     display: inline-block;
     margin: auto;
     position: relative;
@@ -339,7 +338,7 @@ hr{
     display: block;
     margin: 0 auto;
     vertical-align:center;
-    top:37px;
+    top:30%;
 }
 /** Exit Button **/
 .exit-button-wrapper {
@@ -367,12 +366,12 @@ hr{
     .restaurant
     {
         display: block;
-        width: 100%;
-        margin: initial;
-        float: initial;
+        width: 100vw;
+        margin: auto;
+        padding: 0;
     }
     .everything-wrapper {
-        height: 150vh;
+        /*height: 100vh;*/
         margin: 0;
         width: 100vw;
 
@@ -383,21 +382,43 @@ hr{
         width: 100%;
     }
     .wheel {
-        height: 80%;
+        height: 100%;
         box-sizing: border-box;
+        position: relative;
     }
     #div-wheel-right {
-        height: 70%;
-        margin: 5% 0;
+        height: 60%;
+        box-sizing: border-box;
     }
     #div-wheel-left {
-        height: 30%;
-        margin: 3% 0;
+        height: 40%;
     }
     #display-food-type, #spin-button {
+        margin: 0;
+    }
+    #display-food-type {
+        height: 20%;
         width: 100%;
-        margin: 0 0 5%;
-        height: 50%;
-        display: block;
+    }
+    #color-wheel {
+        height: 80%;
+        width: auto;
+        margin: 0 27.5%;
+    }
+    .header-wrapper, .footer-wrapper {
+        /*height: 10%;*/
+    }
+    .footer-wrapper {
+        max-height: 30px;
+    }
+    .restaurant {
+        height: 20%;
+        box-sizing: border-box;
+    }
+    .restaurant p, .restaurant button {
+        margin: 0;
+    }
+    .wheel-content-wrapper {
+        height: 80%;
     }
 }
