@@ -10,7 +10,7 @@
  */
 var gaValidFoodTypes = ['american', 'barbecue', 'buffet', 'burgers', 'chinese', 'fast casual', 'fast food',
                         'indian', 'italian', 'mediterranean', 'mexican', 'pizza', 'pub', 'sandwiches',
-                        'seafood', 'sushi', 'tapas', 'teppan', 'thai', 'vegetarian'];
+                        'seafood', 'sushi', 'tapas', 'teppanyaki', 'thai', 'vegetarian'];
 
 /**
  *  Global data for spinner.
