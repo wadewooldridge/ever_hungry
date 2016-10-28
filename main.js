@@ -603,7 +603,7 @@ var address = {};
  * Get the json file from Google Geo
  */
 function Convert_LatLng_To_Address(lat, lng,destination) {
-    var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=false";
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=false";
     jQuery.getJSON(url, function (json) {
         Create_Address(json);
         test(address,destination);
