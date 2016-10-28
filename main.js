@@ -101,7 +101,11 @@ function photosError() {
 function photosSuccess(pictures_data) {
     console.log('photosSuccess');
     gaPictures = pictures_data.photos.photo;
-    photosDisplay();
+    $("#photos-modal-wrapper").text("Searching...")
+    setTimeout(function(){
+        photosDisplay();
+    },1000);
+
 }
 
 /**
@@ -480,10 +484,23 @@ function restaurantCallback(results, status) {
             restaurant.address = results[i].vicinity;
             gaRestaurants.push(restaurant);
         }
-        restaurantSuccess();
+
+        setTimeout(function(){
+            $("#display-food-type").text("Searching...");
+            setTimeout(function(){
+                restaurantSuccess();
+                $('#display-food-type').text(gaFoodTypes[gFoodTypeIndex]);
+            },1000)
+        },1000)
+
     }
     else{
-        restaurantError();
+        setTimeout(function(){
+            $("#display-food-type").text("Searching...");
+            setTimeout(function(){
+                restaurantError();
+            },1000)
+        },1000)
     }
     /*
      if (status === google.maps.places.PlacesServiceStatus.OK) {
