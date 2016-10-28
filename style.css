@@ -14,15 +14,16 @@
 }
 /** Header Wrapper **/
 .header-wrapper {
-    height: 10%;
+    height: 6%;
     width: 100%;
     position: relative;
     background-color: #D32F2F;
     max-height: 220px;
+    font-family: 'Oswald', sans-serif;
 }
 /** Wheel Wrapper **/
 .wheel-content-wrapper {
-    height:80%;
+    height:85%;
     width: 100%;
     position: relative;
     background-color: #FFFFFF;
@@ -75,13 +76,16 @@
 /** Title and Logo **/
 
 .dice-logo {
-    height: 50%;
+    height: 30%;
     display: inline-block;
+    position: relative;
+    top: 29%;
 }
-.main-title{
+.main-title {
     display: inline-block;
     color: white;
-    min-width: 203px;
+    position: absolute;
+    bottom: 12%;
 }
 .header-logo {
     height: 50%;
@@ -91,7 +95,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
-    min-width: 263px;
+    min-width: 206px;
 }
 /** Title **/
 .header-title {
@@ -116,7 +120,7 @@
     height: 100%;
     width: 100%;
     font-size: 0;
-    background-image: url('assets/background1.jpg');
+    background-image: url('assets/background3.jpg');
 }
 div.wheel-left {
     display: inline-block;
@@ -182,8 +186,6 @@ div.wheel-right {
     padding-right: 5%;
     padding-left: 5%;
     font-family: 'Quicksand', sans-serif;
-    background-image: url('assets/background1.jpg');
-    opacity: 0.3;
 }
 
 
@@ -237,17 +239,28 @@ div.wheel-right {
     /*text-align: center;*/
 /*}*/
 /** Location Button **/
-#location-zip-button{
+#location-zip-button {
     background: #EF9A9A;
-    height: 15%;
-    width: 25%;
+    height: 9%;
+    width: 39%;
     border: white;
     box-shadow: 12px 10px 5px #EF5350;
     border-radius: 5px;
-    style="cursor:pointer"
-
+    position: relative;
+    top: 15%;
+    right: 41%;
+    display: inline-block;
 }
-.userZip, #location-current-button{
+
+#location-container{
+    position: absolute;
+    height: 86%;
+    width: 93%;
+    top:23%;
+    left:32%;
+}
+.userZip,
+#location-current-button{
     width: 40%;
     height: 15%;
     border-radius: 6px;
@@ -265,6 +278,21 @@ hr{
 
 #location-modal-wrapper{
     font-family: 'Quicksand', sans-serif;
+}
+
+#location-ok-button,
+#help-ok-button {
+    position: absolute;
+    right: 5%;
+    bottom:5%;
+    width: 8%;
+    height: 10%;
+    border-radius: 7px;
+    border: white;
+    background: #FF5252;
+    color:white;
+    font-family: 'Oswald', sans-serif;
+    font-size:159%;
 }
 /** Settings Button **/
 
