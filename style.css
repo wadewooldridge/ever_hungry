@@ -301,7 +301,8 @@ hr{
 }
 
 #location-ok-button,
-#help-ok-button {
+#help-ok-button,
+#settings-ok-button {
     position: absolute;
     right: 5%;
     bottom:5%;
@@ -314,6 +315,8 @@ hr{
     font-family: 'Oswald', sans-serif;
     font-size:159%;
 }
+
+#help
 /** Settings Button **/
 
 #settings-modal-wrapper{

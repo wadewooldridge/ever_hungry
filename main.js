@@ -272,9 +272,8 @@ function buildSettingsModal() {
     // Add the OK button.
     wrapperElem = $('#settings-modal-wrapper')
     wrapperElem.append($('<br>'));
-    wrapperElem.append($('<hr>'));
     wrapperElem.append($('<br>'));
-    var buttonElem = $('<button>').text('OK').click(onSettingsOkButton);
+    var buttonElem = $('<button>').text('>').click(onSettingsOkButton).attr('id','settings-ok-button');
     wrapperElem.append(buttonElem);
 }
 
