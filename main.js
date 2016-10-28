@@ -405,6 +405,7 @@ function initMap(food) {
         types: ['food'],
         keyword:food
     }, restaurantCallback);
+
 }
 
 /**
@@ -447,7 +448,7 @@ function restaurantDisplay() {
         // Build a div with the basic information from the restaurant.
         var restaurantElem = $('<div>').addClass('restaurant');
         restaurantElem.append($('<p>').addClass('restaurant-name').text(r.name));
-        restaurantElem.append($('<p>').text(r.address));
+        restaurantElem.append($('<p>').addClass('restaurant-address').text(r.address));
 
         // Add buttons for the photos and directions.
         restaurantElem.append($('<button>').text('Photos').click(function () {
@@ -455,8 +456,9 @@ function restaurantDisplay() {
             onPhotosButton();
         }));
         restaurantElem.append($('<button>').text('Directions').click(function () {
-            directionsRequest();
+
             onDirectionsButton();
+            direction(gLocation["lat"],gLocation["lng"],$(this).parent().find(".restaurant-address").text());
         }));
 
         // Append the formatted restaurant div to its container.
@@ -570,6 +572,191 @@ function spinWheel(){
 
     imgElem.attr('style', css);
 }
+/*direction*/
+var address = {};
+
+/*
+ * Get the json file from Google Geo
+ */
+function Convert_LatLng_To_Address(lat, lng,destination) {
+    var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=false";
+    jQuery.getJSON(url, function (json) {
+        Create_Address(json);
+        test(address,destination);
+    });
+}
+
+/*
+ * Create an address out of the json
+ */
+function Create_Address(json) {
+    if (!check_status(json)) // If the json file's status is not ok, then return
+        return 0;
+    address['country'] = google_getCountry(json);
+    address['province'] = google_getProvince(json);
+    address['city'] = google_getCity(json);
+    address['street'] = google_getStreet(json);
+    address['postal_code'] = google_getPostalCode(json);
+    address['country_code'] = google_getCountryCode(json);
+    address['formatted_address'] = google_getAddress(json);
+
+}
+
+/*
+ * Check if the json data from Google Geo is valid
+ */
+function check_status(json) {
+    if (json["status"] == "OK") return true;
+    return false;
+}
+
+/*
+ * Given Google Geocode json, return the value in the specified element of the array
+ */
+
+function google_getCountry(json) {
+    return Find_Long_Name_Given_Type("country", json["results"][0]["address_components"], false);
+}
+function google_getProvince(json) {
+    return Find_Long_Name_Given_Type("administrative_area_level_1", json["results"][0]["address_components"], true);
+}
+function google_getCity(json) {
+    return Find_Long_Name_Given_Type("locality", json["results"][0]["address_components"], false);
+}
+function google_getStreet(json) {
+    return Find_Long_Name_Given_Type("street_number", json["results"][0]["address_components"], false) + ' ' + Find_Long_Name_Given_Type("route", json["results"][0]["address_components"], false);
+}
+function google_getPostalCode(json) {
+    return Find_Long_Name_Given_Type("postal_code", json["results"][0]["address_components"], false);
+}
+function google_getCountryCode(json) {
+    return Find_Long_Name_Given_Type("country", json["results"][0]["address_components"], true);
+}
+function google_getAddress(json) {
+    return json["results"][0]["formatted_address"];
+}
+
+/*
+ * Searching in Google Geo json, return the long name given the type.
+ * (if short_name is true, return short name)
+ */
+
+function Find_Long_Name_Given_Type(t, a, short_name) {
+    var key;
+    for (key in a ) {
+        if ((a[key]["types"]).indexOf(t) != -1) {
+            if (short_name)
+                return a[key]["short_name"];
+            return a[key]["long_name"];
+        }
+    }
+}
+
+function direction(lat,lng,destination) {
+    Convert_LatLng_To_Address(lat,lng,destination);
+}
+function test(address,destination) {
+    console.log("-----------------------------")
+    console.log("Where I am:",address.formatted_address);
+    console.log("Place to go:",destination);
+    var origin_place_id = null;
+    var destination_place_id = null;
+    var travel_mode = 'WALKING';
+    var map = new google.maps.Map(document.getElementById('directions-modal-wrapper'), {
+        mapTypeControl: false,
+        center: gLocation,
+        zoom: 10
+    });
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    directionsDisplay.setMap(map);
+    $('#origin-input').val(address.formatted_address);
+    var origin_input = document.getElementById('origin-input');
+    $("#destination-input").val(destination);
+    var destination_input = document.getElementById('destination-input');
+    var modes = document.getElementById('mode-selector');
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(origin_input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(destination_input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(modes);
+
+
+    var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
+    origin_autocomplete.bindTo('bounds', map);
+    var destination_autocomplete =
+        new google.maps.places.Autocomplete(destination_input);
+    destination_autocomplete.bindTo('bounds', map);
+    // Sets a listener on a radio button to change the filter type on Places
+    // Autocomplete.
+    /*
+    function setupClickListener(id, mode) {
+        var radioButton = document.getElementById(id);
+        radioButton.addEventListener('click', function () {
+            travel_mode = mode;
+        });
+    }
+
+    setupClickListener('changemode-walking', 'WALKING');
+    setupClickListener('changemode-transit', 'TRANSIT');
+    setupClickListener('changemode-driving', 'DRIVING');
+    */
+    function expandViewportToFitPlace(map, place) {
+        if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+        } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);
+        }
+    }
+
+    origin_autocomplete.addListener('place_changed', function () {
+
+        var place = origin_autocomplete.getPlace();
+        if (!place.geometry) {
+            window.alert("Autocomplete's returned place contains no geometry");
+            return;
+        }
+        expandViewportToFitPlace(map, place);
+        // If the place has a geometry, store its place ID and route if we have
+        // the other place ID
+        origin_place_id = place.place_id;
+        route(origin_place_id, destination_place_id, travel_mode,
+            directionsService, directionsDisplay);
+    });
+    destination_autocomplete.addListener('place_changed', function () {
+        var place = destination_autocomplete.getPlace();
+        if (!place.geometry) {
+            window.alert("Autocomplete's returned place contains no geometry");
+            return;
+        }
+        expandViewportToFitPlace(map, place);
+        // If the place has a geometry, store its place ID and route if we have
+        // the other place ID
+        destination_place_id = place.place_id;
+        route(origin_place_id, destination_place_id, travel_mode,
+            directionsService, directionsDisplay);
+    });
+
+    function route(origin_place_id, destination_place_id, travel_mode,
+                   directionsService, directionsDisplay) {
+        if (!origin_place_id || !destination_place_id) {
+            return;
+        }
+        directionsService.route({
+            origin: {'placeId': origin_place_id},
+            destination: {'placeId': destination_place_id},
+            travelMode: travel_mode
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+}
+
+
+
 
 /**
  *  Document ready.
