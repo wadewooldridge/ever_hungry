@@ -265,7 +265,7 @@ div.wheel-right {
 /* Media Queries
 =============================== */
 
-@media (max-width: 768px) {
+@media screen and (max-width: 500px) {
     .header-wrapper,
     .wheel-content-wrapper,
     .wheel,
