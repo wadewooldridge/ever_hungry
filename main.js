@@ -128,7 +128,7 @@ function createPhotoUrl(){
  */
 function onSpin() {
     console.log('onSpin');
-
+    restaurantClearDisplay();
     // TODO: Add some animation for the spinner.
 
     // Select a random food type from the gaFoodTypes[] array.
