@@ -8,8 +8,9 @@
 /**
  *  @type {string[]}    Valid food types (categories).
  */
-var gaValidFoodTypes = ['barbecue', 'burgers', 'italian', 'mediterranean', 'mexican', 'pizza', 'sandwiches',
-                        'seafood', 'sushi', 'thai'];
+var gaValidFoodTypes = ['american', 'barbecue', 'buffet', 'burgers', 'chinese', 'fast casual', 'fast food',
+                        'indian', 'italian', 'mediterranean', 'mexican', 'pizza', 'pub', 'sandwiches',
+                        'seafood', 'sushi', 'tapas', 'teppan', 'thai', 'vegetarian'];
 
 /**
  *  Global data for spinner.
@@ -258,9 +259,10 @@ function locationSuccessZip(data) {
  */
 function buildSettingsModal() {
     console.log('buildSettingsModal');
-    var wrapperElem = $('#settings-modal-wrapper');
+    var wrapperElems = [$('#settings-left'), $('#settings-right')];
 
     for (var i = 0; i < gaValidFoodTypes.length; i++) {
+        var wrapperElem = wrapperElems[(i < (gaValidFoodTypes.length / 2)) ? 0 : 1];
         var pElem = $('<p>');
         pElem.append($('<input>', {type: 'checkbox', checked: 'checked', id: 'checkbox' + i}));
         pElem.append($('<label>').html('&nbsp;' + gaValidFoodTypes[i]));
@@ -268,6 +270,10 @@ function buildSettingsModal() {
     }
 
     // Add the OK button.
+    wrapperElem = $('#settings-modal-wrapper')
+    wrapperElem.append($('<br>'));
+    wrapperElem.append($('<hr>'));
+    wrapperElem.append($('<br>'));
     var buttonElem = $('<button>').text('OK').click(onSettingsOkButton);
     wrapperElem.append(buttonElem);
 }
@@ -294,8 +300,8 @@ function loadSettingsFromLocalStorage() {
         retArray = JSON.parse(localStorage.getItem(gLocalStorageKey));
     }
 
-    // If it failed for either reason, assume the settings are all enabled.
-    if (retArray === null) {
+    // If it failed for either reason, or this is the wrong length, assume the settings are all enabled.
+    if (retArray === null || retArray.length != gaValidFoodTypes.length) {
         console.log('loadSettingsFromLocalStorage: defaulting settings');
         gaFoodTypesChecked = [];
 
