@@ -102,7 +102,7 @@ function photosError() {
 function photosSuccess(pictures_data) {
     console.log('photosSuccess', pictures_data);
     gaPictures = pictures_data.photos.photo;
-    $("#photos-modal-wrapper").text("Searching...")
+    $("#photos-modal-span").text("Searching...")
     setTimeout(function(){
         photosDisplay();
     },1000);
@@ -114,7 +114,8 @@ function photosSuccess(pictures_data) {
  */
 function photosDisplay() {
     console.log('photosDisplay: count: ' + gaPictures.length);
-    containerElem = $('#photos-modal-wrapper');
+    $("#photos-modal-span").text('')
+    var containerElem = $("#photos-modal-wrapper");
 
     // Delete any existing pictures.
     containerElem.find('img').remove();
