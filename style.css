@@ -230,6 +230,12 @@ div.wheel-right {
     text-transform: capitalize;
 }
 
+/* For photos modal. */
+#photos-modal-wrapper img {
+    width: 20%;
+    height: auto;
+}
+
 /* for wheel */
 #color-wheel{
     display: inline-block;
@@ -377,6 +383,11 @@ hr{
         width: 100vw;
 
     }
+    #photos-modal-wrapper img {
+        width: 25%;
+        height: auto;
+    }
+
     #div-wheel-left,
     #div-wheel-right
     {
