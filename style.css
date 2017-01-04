@@ -100,6 +100,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
     box-sizing: border-box;
     min-width: 206px;
 }
@@ -113,6 +117,10 @@
     position: absolute;
     left: 45%;
     transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
     top: 87%;
     height: 44%;
     width: auto
@@ -228,6 +236,9 @@ div.wheel-right {
     width: 70%;
     margin: 0 15%;
     position: absolute;
+    transition: transform 2s ease-out;
+    -o-transition: -o-transform 2s ease-out;
+    -moz-transition: -moz-transform 2s ease-out;
     -webkit-transition: -webkit-transform 2s ease-out;
 }
 
