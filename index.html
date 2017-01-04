@@ -36,12 +36,14 @@
                 <!-- Restaurant list is created here. -->
             </div>
         </div>
-        <div id="map"></div>
-        <input id="origin-input" class="controls" type="text"
-               placeholder="Enter an origin location">
 
-        <input id="destination-input" class="controls" type="text"
-               placeholder="Enter a destination location">
+        <div id="map">
+            <input id="origin-input" class="controls" type="text"
+                   placeholder="Enter an origin location">
+
+            <input id="destination-input" class="controls" type="text"
+                   placeholder="Enter a destination location">
+        </div>
 
         <div id="help-modal-wrapper" class="modal-wrapper">
             <h3>Welcome to <span class="product-name">EverHungry?</span></h3>
@@ -62,6 +64,7 @@
             <h3>Bon Appetit!</h3>
             <button id="help-ok-button" style="cursor:pointer"> ></button>
         </div>
+
         <div id="location-modal-wrapper" class="modal-wrapper">
             <div id="location-container">
                 <input type="submit" value="use my current location" id="location-current-button"
@@ -76,8 +79,8 @@
                 <br>
             </div>
             <button id="location-ok-button" style="cursor:pointer"> &gt; </button>
-
         </div>
+
         <div id="settings-modal-wrapper" class="modal-wrapper">
             <h4>What goes on the wheel?</h4>
             <div id="settings-left" class="settings-column"></div>
