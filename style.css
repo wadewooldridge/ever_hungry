@@ -231,6 +231,10 @@ div.wheel-right {
     -webkit-transition: -webkit-transform 2s ease-out;
 }
 
+#origin-input, #destination-input {
+    display: none;
+}
+
 /*********** Footer content *************/
 /* Footer content broken into sub-sections */
 
